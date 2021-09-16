@@ -14,14 +14,14 @@
    <children>
       <Pane prefHeight="420.0" prefWidth="779.0" style="-fx-background-color: white;">
          <children>
-            <ImageView fitHeight="93.0" fitWidth="290.0" layoutX="14.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="105.0" fitWidth="290.0" layoutX="14.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../subir/Logo%20la%20Cucharita.PNG" />
+                  <Image url="@../../media/Logo%20la%20Cucharita.PNG" />
                </image>
             </ImageView>
-            <ImageView fitHeight="253.0" fitWidth="336.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="253.0" fitWidth="332.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../comida.png" />
+                  <Image url="@../../media/comida.png" />
                </image>
             </ImageView>
             <Pane layoutX="327.0" prefHeight="420.0" prefWidth="369.0" style="-fx-background-color: #FFAC42;">
