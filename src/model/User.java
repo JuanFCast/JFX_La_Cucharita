@@ -9,4 +9,8 @@ public class User {
 		ID = id;
 	}
 	
+	public static void JesusD() {
+		System.out.println("Hola mundo");
+	}
+	
 }
