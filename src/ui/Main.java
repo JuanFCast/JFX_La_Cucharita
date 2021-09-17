@@ -12,4 +12,16 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void JuanK() {
+		int i = 0;
+		
+		System.out.println("Hola mis amiguitos");
+		if(i == 9) {
+			
+			
+		}
+	}
+	
+	
 }
