@@ -12,4 +12,17 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public int JuanFCast(){
+		int option;
+
+    	System.out.println("Hello World");
+        option = sc.nextInt();
+        sc.nextLine();
+
+        return option;
+    	
+	}
+	
+	
 }
