@@ -12,4 +12,9 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public static void JesusD() {
+		System.out.println("Hola mundo");
+	}
+	
 }
