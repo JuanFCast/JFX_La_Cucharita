@@ -4,6 +4,8 @@ import java.io.IOException;
 
 public class Main {
 	
+	
+	
 	public static void main(String[] args) throws IOException {
         launch(args);
     }
@@ -13,6 +15,7 @@ public class Main {
 		
 	}
 	
+
 	public void JuanK() {
 		int i = 0;
 		
@@ -21,6 +24,17 @@ public class Main {
 			
 			
 		}
+	}
+
+	public int JuanFCast(){
+		int option;
+
+    	System.out.println("Hello World");
+        option = sc.nextInt();
+        sc.nextLine();
+
+        return option;
+    	
 	}
 	
 	
