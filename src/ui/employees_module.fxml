@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="534.0" prefWidth="737.0" style="-fx-background-color: #FFAC42;">
+         <children>
+            <TableView layoutX="28.0" layoutY="173.0" prefHeight="315.0" prefWidth="320.0">
+              <columns>
+                <TableColumn prefWidth="311.0" text="Lista de Empleados" />
+              </columns>
+            </TableView>
+            <Pane layoutX="376.0" layoutY="-2.0" prefHeight="432.0" prefWidth="363.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="355.0" fitWidth="363.0" layoutY="80.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../media/madera.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="229.0" fitWidth="295.0" layoutX="35.0" layoutY="80.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../../../../../subir/WhatsApp%20Image%202021-06-24%20at%205.05.19%20PM%20(4).jpeg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="111.0" fitWidth="363.0" layoutY="3.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../media/logo-marco.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="132.0" layoutY="315.0" text="NAME">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</VBox>
