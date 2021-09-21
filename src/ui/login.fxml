@@ -26,17 +26,17 @@
             </ImageView>
             <Pane layoutX="327.0" prefHeight="420.0" prefWidth="369.0" style="-fx-background-color: #FFAC42;">
                <children>
-                  <PasswordField layoutX="43.0" layoutY="210.0" prefHeight="45.0" prefWidth="283.0" promptText="PASSWORD">
+                  <PasswordField fx:id="loginPassField" layoutX="43.0" layoutY="210.0" prefHeight="45.0" prefWidth="283.0" promptText="PASSWORD">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </PasswordField>
-                  <TextField layoutX="43.0" layoutY="136.0" prefHeight="45.0" prefWidth="283.0" promptText="USERNAME">
+                  <TextField fx:id="loginUserField" layoutX="43.0" layoutY="136.0" prefHeight="45.0" prefWidth="283.0" promptText="USERNAME">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </TextField>
-                  <Button layoutX="111.0" layoutY="301.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="147.0" style="-fx-background-color: white;" text="Log In">
+                  <Button layoutX="111.0" layoutY="301.0" mnemonicParsing="false" onAction="#LogIn" prefHeight="38.0" prefWidth="147.0" style="-fx-background-color: white;" text="Log In">
                      <font>
                         <Font size="17.0" />
                      </font>
