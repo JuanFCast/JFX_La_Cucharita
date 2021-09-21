@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	//Comentario
+	//Life is ***
 	public static void main(String[] args) throws IOException {
 		launch(args);
     }
