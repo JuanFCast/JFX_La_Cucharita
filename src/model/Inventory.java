@@ -13,6 +13,8 @@ public class Inventory {
 		
 	}
 	
+	//Este metodo es para agregar ingredientes nuevos, es decir, que no esten ya en el inventario
+	
 	public void addNewIngredient(String name, MEASUREMENT_TYPE measurement, int amount) {
 		ingredients.add(new Ingredient(name, measurement, amount));
 	}
