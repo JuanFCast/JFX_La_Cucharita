@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="522.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="590.0" prefWidth="531.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="42.0" layoutY="41.0" prefHeight="440.0" prefWidth="521.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <AnchorPane layoutX="5.0" layoutY="92.0" prefHeight="491.0" prefWidth="520.0" style="-fx-background-color: orange; -fx-border-color: black;">
          <children>
             <TextField fx:id="txtRegLastName" layoutX="87.0" layoutY="105.0" prefHeight="39.0" prefWidth="277.0" promptText="Last Name(s)" style="-fx-border-color: black;" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="105.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </TextField>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="355.0" prefHeight="27.0" prefWidth="296.0" text="Already have an account?" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="355.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="87.0" layoutY="409.0" prefHeight="27.0" prefWidth="296.0" text="Already have an account?" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="409.0">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRegUsername" layoutX="87.0" layoutY="201.0" prefHeight="39.0" prefWidth="277.0" promptText="Username" style="-fx-border-color: black;" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="201.0">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </TextField>
-            <PasswordField fx:id="txtRegPassword" layoutX="87.0" layoutY="250.0" prefHeight="39.0" prefWidth="275.0" promptText="Password" style="-fx-border-color: black;" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="250.0">
+            <PasswordField fx:id="txtRegPassword1" layoutX="89.0" layoutY="203.0" prefHeight="39.0" prefWidth="342.0" promptText="Password" style="-fx-border-color: black;">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </PasswordField>
-            <Button layoutX="114.0" layoutY="298.0" mnemonicParsing="false" onAction="#RegSignIn" prefHeight="35.0" prefWidth="240.0" style="-fx-background-color: #FFAC42; -fx-border-color: black;" text="Sign In" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="298.0">
+            <PasswordField fx:id="txtRegPassword" layoutX="89.0" layoutY="252.0" prefHeight="39.0" prefWidth="345.0" promptText="Confirm Password" style="-fx-border-color: black;" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="251.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </PasswordField>
+            <Button layoutX="116.0" layoutY="371.0" mnemonicParsing="false" onAction="#RegSignIn" prefHeight="35.0" prefWidth="240.0" style="-fx-background-color: #FFAC42; -fx-border-color: black;" text="Sign In" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="371.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -52,7 +55,13 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <DatePicker layoutX="89.0" layoutY="301.0" prefHeight="39.0" prefWidth="345.0" promptText="Birth Day" />
          </children>
       </AnchorPane>
+      <ImageView fitHeight="68.0" fitWidth="317.0" layoutX="107.0" layoutY="24.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../media/Logo%20la%20Cucharita.PNG" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
