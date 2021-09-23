@@ -100,7 +100,9 @@ public class RestaurantGUI {
 	//Variables del modulo de carta
 	@FXML
     private ComboBox<String> cboxIngredientsAvailable;
-
+	@FXML
+    private TextField amountOfIngredients;
+	
 	private ObservableList<Ingredient> observableListIngredients;
 
 	
@@ -145,6 +147,20 @@ public class RestaurantGUI {
 	@FXML
 	void openOrderModule(ActionEvent event) throws IOException {
 		OrderMenu();
+    }
+	
+	@FXML
+    void evaluateIngredientComboBox(ActionEvent event) {
+		String value = cboxIngredientsAvailable.getValue();
+		
+		for(int i = 0; i < inventory.getIngredients().size(); i++) {
+			if(value.equals(inventory.getIngredients().get(i).getName())) {
+				String amount = "" + inventory.getIngredients().get(i).getAmount();
+				amountOfIngredients.setText(amount);
+			}
+		}
+		
+		
     }
 	
 	/**Metodos de mostrar modulos
@@ -397,6 +413,16 @@ public class RestaurantGUI {
 	    @FXML
 	    void plus(ActionEvent event) {
 
+	    }
+	    
+	    
+	    //Metodos de aumento y decremento
+	    public double lessValue(double value) {
+	    	return value - 1;
+	    }
+	    
+	    public double plusValue(double value) {
+	    	return value + 1;
 	    }
 	
 }
