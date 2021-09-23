@@ -223,7 +223,7 @@ public class RestaurantGUI {
     	
     	measurementType.getItems().addAll(MEASUREMENT_TYPE.MILLILITERS, MEASUREMENT_TYPE.GRAMS, MEASUREMENT_TYPE.UNITS, MEASUREMENT_TYPE.KILOGRAMS);
     	
-    	itializeTableView();
+    	itializeTableViewInventory();
 	}
 	
 	
@@ -368,14 +368,14 @@ public class RestaurantGUI {
 			} else {
 				inventory.addNewIngredient(name, type, amount);
 				JOptionPane.showMessageDialog(null, "The new ingredient was successfully registered");
-				itializeTableView();
+				itializeTableViewInventory();
 			}
 	    	
 	    }
 
 	    
 	    // Este metodo inicializa la lista que muestra los ingredinetes en el modulo de inventario
-	    private void itializeTableView() {
+	    private void itializeTableViewInventory() {
 	    	observableListIngredients = FXCollections.observableArrayList(inventory.getIngredients());
 	    	
 	    	tvIngredients.setItems(observableListIngredients);
