@@ -7,11 +7,16 @@ import javax.swing.JOptionPane;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.MEASUREMENT_TYPE;
 import model.Restaurant;
 
 //Clase controladora, aqui poner todo lo referente a lo grafico (Es como el Main en nuestros proyectos)
@@ -86,11 +91,67 @@ public class RestaurantGUI {
        mainStage.show();
 	}
 	
+	//Este metodo muestra la pantalla del modulo de inventario
+	
+	
 	//setters
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
 	}
 
+	//metodos y atributos para la clase inventario
 
+	 @FXML
+	    private TableView<?> tbIngredients;
 
+	    @FXML
+	    private TableColumn<?, ?> tcName;
+
+	    @FXML
+	    private TableColumn<?, ?> tcAmount;
+
+	    @FXML
+	    private TableColumn<?, ?> tcMeasurementType;
+
+	    @FXML
+	    private TextField txtNameNewIngredient;
+
+	    @FXML
+	    private TextField txtAmountNewIngredient;
+	    
+	    @FXML
+	    private ComboBox<MEASUREMENT_TYPE> measurementType;
+
+	    @FXML
+	    private Label lbNameIngredient;
+
+	    @FXML
+	    private Label lbAmount;
+
+	    @FXML
+	    private Label lbMeasurementType;
+
+	  
+	    // este metodo es para agregar un nuevo ingrediente desde el inventario
+	    @FXML
+	    void addNewIngredient(ActionEvent event) {
+	    	
+	    }
+
+	    
+	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
+	    @FXML
+	    void less(ActionEvent event) {
+
+	    }
+	    
+	    //measurementType.getItems().addAll(MILLILITERS, GRAMS, UNITS, KILOGRAMS);
+
+	    
+	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
+	    @FXML
+	    void plus(ActionEvent event) {
+
+	    }
+	
 }
