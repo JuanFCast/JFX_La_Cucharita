@@ -1,6 +1,8 @@
 package ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -38,6 +40,10 @@ public class RestaurantGUI {
     private TextField loginUserField;
 	@FXML
     private PasswordField loginPassField;
+	
+	//Variables del modulo de carta
+	@FXML
+    private ComboBox<String> cboxIngredientsAvailable;
 	
 	// instancia de la clase Inventory
 	private Inventory inventory;
@@ -132,7 +138,13 @@ public class RestaurantGUI {
 		Parent log = fxmlloader.load();
 		mainPane.getChildren().setAll(log);
 
+		List<String> ingredients = new ArrayList<String>();
 		
+		for(int i = 0; i < inventory.getIngredients().size(); i++) {
+			ingredients.add(inventory.getIngredients().get(i).getName());
+		}
+		
+		cboxIngredientsAvailable.getItems().addAll(ingredients);
 	}
 
 	//Este metodo muestra en pantalla el modulo de Pedidos

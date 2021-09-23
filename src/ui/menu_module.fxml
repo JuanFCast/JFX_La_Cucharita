@@ -23,7 +23,7 @@
                   <TableColumn prefWidth="124.0" text=" MEASUREMENT" />
                </columns>
             </TableView>
-            <Pane layoutX="414.0" layoutY="15.0" prefHeight="575.0" prefWidth="276.0" style="-fx-background-color: white;">
+            <Pane layoutX="410.0" layoutY="34.0" prefHeight="575.0" prefWidth="276.0" style="-fx-background-color: white;">
                <children>
                   <TextField layoutX="22.0" layoutY="59.0" prefHeight="48.0" prefWidth="239.0" promptText="Dish Name">
                      <font>

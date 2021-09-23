@@ -36,4 +36,12 @@ public class Restaurant {
 		return confirmation;
 	}
 	
+	public boolean add_New_Dish_In_The_Menu(String dishName, ArrayList<Ingredient> ingredients, double price) {
+		if(dishesAvailable.add(new Dish(dishName, ingredients, price))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }
