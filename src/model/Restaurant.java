@@ -8,10 +8,12 @@ public class Restaurant {
 
 	//Lista de Usuarios del Restaurante (Empleados y moderadores)
 	private List<User> userList;
+	private List<Dish> dishesAvailable;
 	
 	//Constructor
 	public Restaurant() {
 		userList = new ArrayList<User>();
+		dishesAvailable = new ArrayList<Dish>();
 		
 		//Creacion de Usuarios administradores
 		userList.add(new User("123", "Administrador", "123", "Administrador"));
@@ -33,6 +35,5 @@ public class Restaurant {
 		
 		return confirmation;
 	}
-	
 	
 }

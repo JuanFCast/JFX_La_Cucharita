@@ -159,8 +159,6 @@ public class RestaurantGUI {
 		
 	}
 	
-	
-	
 	//setters
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
