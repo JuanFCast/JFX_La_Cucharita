@@ -18,14 +18,6 @@ public class Inventory {
 	public void addNewIngredient(String name, MEASUREMENT_TYPE measurement, double amount) {
 		ingredients.add(new Ingredient(name, measurement, amount));
 	}
-
-	public List<Ingredient> getIngredients() {
-		return ingredients;
-	}
-
-	public void setIngredients(List<Ingredient> ingredients) {
-		this.ingredients = ingredients;
-	}
 	
 	// Este metodo revisa si un ingrediente que quiere ser agregado ya existe
 	// retorna true si existe y false en el caso contrario
@@ -37,6 +29,14 @@ public class Inventory {
 			}
 		}
 		return exist;
+	}
+	
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 	
 }

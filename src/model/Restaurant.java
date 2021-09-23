@@ -8,10 +8,12 @@ public class Restaurant {
 
 	//Lista de Usuarios del Restaurante (Empleados y moderadores)
 	private List<User> userList;
+	private List<Dish> dishesAvailable;
 	
 	//Constructor
 	public Restaurant() {
 		userList = new ArrayList<User>();
+		dishesAvailable = new ArrayList<Dish>();
 		
 		//Creacion de Usuarios administradores
 		userList.add(new User("123", "Administrador", "123", "Administrador"));
@@ -34,5 +36,12 @@ public class Restaurant {
 		return confirmation;
 	}
 	
+	public boolean add_New_Dish_In_The_Menu(String dishName, ArrayList<Ingredient> ingredients, double price) {
+		if(dishesAvailable.add(new Dish(dishName, ingredients, price))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 }
