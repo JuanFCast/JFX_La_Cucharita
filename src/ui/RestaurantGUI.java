@@ -136,6 +136,20 @@ public class RestaurantGUI {
     	measurementType.getItems().addAll(MEASUREMENT_TYPE.MILLILITERS, MEASUREMENT_TYPE.GRAMS, MEASUREMENT_TYPE.UNITS, MEASUREMENT_TYPE.KILOGRAMS);
 	}
 	
+	
+	
+	//Este metodo muestra la pantalla del modulo de empleados
+	public void OpenEmployees() throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("list-employe.fxml"));
+		fxmlloader.setController(this);
+		Parent log = fxmlloader.load();
+		mainPane.getChildren().setAll(log);
+
+		
+	}
+	
+	
+	
 	//setters
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
