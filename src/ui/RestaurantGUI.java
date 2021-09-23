@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Inventory;
 import model.MEASUREMENT_TYPE;
 import model.Restaurant;
 
@@ -37,10 +38,15 @@ public class RestaurantGUI {
     private TextField loginUserField;
 	@FXML
     private PasswordField loginPassField;
+	
+	// instancia de la clase Inventory
+	private Inventory inventory;
 
 	//Constructor
 	public RestaurantGUI() {
 		laCucharita = new Restaurant();
+		inventory = new Inventory();
+		
 	}
 	
 	/**Metodos de Acciones:*/
@@ -166,7 +172,7 @@ public class RestaurantGUI {
 
 	//metodos y atributos para la clase inventario
 
-	 @FXML
+	 	@FXML
 	    private TableView<?> tbIngredients;
 
 	    @FXML
@@ -200,6 +206,29 @@ public class RestaurantGUI {
 	    // este metodo es para agregar un nuevo ingrediente desde el inventario
 	    @FXML
 	    void addNewIngredient(ActionEvent event) {
+	    	String name ="";
+	    	MEASUREMENT_TYPE type;
+	    	double amount = -1;
+	    	
+	    	name = txtNameNewIngredient.getText();
+	    	type = measurementType.getValue();
+	    	
+	    	//comprueba
+	    	if(Double.parseDouble(txtAmountNewIngredient.getText())<0) {
+	    		JOptionPane.showMessageDialog(null, "The amount can't be a negative number");
+	    	}else {
+	    		amount = Double.parseDouble(txtAmountNewIngredient.getText());
+	    	}
+	    	
+	    	
+	    	if (name.equals("") || type == null || txtAmountNewIngredient.getText().equals("")) {
+	    		JOptionPane.showMessageDialog(null, "Please, Complete all fields");
+			} else if (inventory.ingredientExist(name)){
+				JOptionPane.showMessageDialog(null, "The ingredient you want to add already exists, try modifying its amount");
+			} else {
+				inventory.addNewIngredient(name, type, amount);
+				JOptionPane.showMessageDialog(null, "The new ingredient was successfully registered");
+			}
 	    	
 	    }
 
