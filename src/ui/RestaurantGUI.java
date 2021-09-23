@@ -32,6 +32,7 @@ public class RestaurantGUI {
 	//Relacion entre Restaurant y su contraladora
 	private Restaurant laCucharita;
 	
+	//Variables del modulo de autenticacion
 	@FXML
     private TextField loginUserField;
 	@FXML
@@ -63,9 +64,12 @@ public class RestaurantGUI {
 		} else {
 			JOptionPane.showMessageDialog(null, "Por favor llenar todos los campos");
 		}
-		
     }
 	
+	@FXML
+    void openDishMenuModule(ActionEvent event) throws IOException {
+		DishMenu();
+    }
 	
 	@FXML
 	void openOrderModule(ActionEvent event) throws IOException {
@@ -74,8 +78,6 @@ public class RestaurantGUI {
 	
 	/**Metodos de mostrar modulos
 	 * @throws IOException */
-	
-	
 	
 	public void showMainPane() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-pane.fxml"));
@@ -117,8 +119,17 @@ public class RestaurantGUI {
 		mainStage.show();
 	}
 	
-	
+	//Este metodo muestra en pantalla el modulo de carta
+	public void DishMenu() throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("menu_module.fxml"));
+		fxmlloader.setController(this);
+		Parent log = fxmlloader.load();
+		mainPane.getChildren().setAll(log);
 
+		
+	}
+
+	//Este metodo muestra en pantalla el modulo de Pedidos
 	public void OrderMenu() throws IOException {
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("order_module.fxml"));
     	fxmlloader.setController(this);

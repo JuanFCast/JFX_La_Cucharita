@@ -16,7 +16,7 @@
             <items>
               <MenuItem mnemonicParsing="false" onAction="#OpenEmployees" text="Employees Module" />
               <MenuItem mnemonicParsing="false" onAction="#OpenInventory" text="Inventary Module" />
-              <MenuItem mnemonicParsing="false" text="Menu Module" />
+              <MenuItem mnemonicParsing="false" onAction="#openDishMenuModule" text="Menu Module" />
                   <MenuItem mnemonicParsing="false" onAction="#openOrderModule" text="Order Module" />
             </items>
           </Menu>
