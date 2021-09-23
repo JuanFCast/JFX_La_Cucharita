@@ -16,22 +16,22 @@
    <children>
       <Pane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #FFAC42;">
          <children>
-            <TableView layoutX="14.0" layoutY="82.0" prefHeight="343.0" prefWidth="377.0" style="-fx-background-color: white;">
+            <TableView layoutX="14.0" layoutY="82.0" prefHeight="343.0" prefWidth="328.0" style="-fx-background-color: white;">
                <columns>
                   <TableColumn prefWidth="160.0" text="INGREDIENT" />
-                  <TableColumn prefWidth="92.0" text="AMOUNT" />
-                  <TableColumn prefWidth="124.0" text=" MEASUREMENT" />
+                  <TableColumn prefWidth="68.0" text="AMOUNT" />
+                  <TableColumn prefWidth="98.0" text=" MEASUREMENT" />
                </columns>
             </TableView>
-            <Pane layoutX="410.0" layoutY="34.0" prefHeight="575.0" prefWidth="276.0" style="-fx-background-color: white;">
+            <Pane layoutX="380.0" layoutY="34.0" prefHeight="575.0" prefWidth="306.0" style="-fx-background-color: white;">
                <children>
-                  <TextField layoutX="22.0" layoutY="59.0" prefHeight="48.0" prefWidth="239.0" promptText="Dish Name">
+                  <TextField layoutX="19.0" layoutY="60.0" prefHeight="48.0" prefWidth="269.0" promptText="Dish Name">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </TextField>
-                  <ComboBox fx:id="cboxIngredientsAvailable" layoutX="126.0" layoutY="168.0" prefHeight="61.0" prefWidth="135.0" />
-                  <TextField editable="false" layoutX="67.0" layoutY="168.0" prefHeight="61.0" prefWidth="48.0" promptText="0">
+                  <ComboBox fx:id="cboxIngredientsAvailable" layoutX="164.0" layoutY="168.0" onAction="#evaluateIngredientComboBox" prefHeight="61.0" prefWidth="124.0" />
+                  <TextField fx:id="amountOfIngredients" editable="false" layoutX="67.0" layoutY="168.0" prefHeight="61.0" prefWidth="88.0" text="0">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -54,7 +54,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="22.0" layoutY="249.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="239.0" text="Add Ingredient">
+                  <Button layoutX="34.0" layoutY="249.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="239.0" text="Add Ingredient">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -76,7 +76,7 @@
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <Button layoutX="14.0" layoutY="514.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="377.0" text="Add New Dish">
+            <Button layoutX="25.0" layoutY="475.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="306.0" text="Add New Dish">
                <font>
                   <Font size="18.0" />
                </font>
