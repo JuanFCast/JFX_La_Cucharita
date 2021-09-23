@@ -15,9 +15,9 @@
    <children>
       <TableView fx:id="tbIngredients" prefHeight="511.0" prefWidth="451.0">
         <columns>
-          <TableColumn fx:id="tcName" prefWidth="193.0" text="Name" />
-          <TableColumn fx:id="tcAmount" prefWidth="65.0" text="Amount" />
-            <TableColumn fx:id="tcMeasurementType" prefWidth="148.0" text="Measurement Type" />
+          <TableColumn fx:id="tcName" prefWidth="236.0" text="Name" />
+          <TableColumn fx:id="tcAmount" prefWidth="62.0" text="Amount" />
+            <TableColumn fx:id="tcMeasurementType" prefWidth="152.0" text="Measurement Type" />
         </columns>
       </TableView>
       <Label layoutX="506.0" layoutY="26.0" prefHeight="33.0" prefWidth="151.0" text="Add a new ingredient" />
