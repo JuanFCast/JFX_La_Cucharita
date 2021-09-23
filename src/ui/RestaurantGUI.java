@@ -7,6 +7,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import javafx.fxml.FXMLLoader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -15,10 +17,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Ingredient;
 import model.Inventory;
 import model.MEASUREMENT_TYPE;
 import model.Restaurant;
@@ -41,9 +45,13 @@ public class RestaurantGUI {
 	@FXML
     private PasswordField loginPassField;
 	
+
 	//Variables del modulo de carta
 	@FXML
     private ComboBox<String> cboxIngredientsAvailable;
+
+	private ObservableList<Ingredient> observableListIngredients;
+
 	
 	// instancia de la clase Inventory
 	private Inventory inventory;
@@ -163,6 +171,8 @@ public class RestaurantGUI {
     	mainPane.getChildren().setAll(log);
     	
     	measurementType.getItems().addAll(MEASUREMENT_TYPE.MILLILITERS, MEASUREMENT_TYPE.GRAMS, MEASUREMENT_TYPE.UNITS, MEASUREMENT_TYPE.KILOGRAMS);
+    	
+    	itializeTableView();
 	}
 	
 	
@@ -185,16 +195,16 @@ public class RestaurantGUI {
 	//metodos y atributos para la clase inventario
 
 	 	@FXML
-	    private TableView<?> tbIngredients;
+	    private TableView<Ingredient> tvIngredients;
 
 	    @FXML
-	    private TableColumn<?, ?> tcName;
+	    private TableColumn<Ingredient, String> tcName;
 
 	    @FXML
-	    private TableColumn<?, ?> tcAmount;
+	    private TableColumn<Ingredient, Double> tcAmount;
 
 	    @FXML
-	    private TableColumn<?, ?> tcMeasurementType;
+	    private TableColumn<Ingredient, MEASUREMENT_TYPE> tcMeasurementType;
 
 	    @FXML
 	    private TextField txtNameNewIngredient;
@@ -240,10 +250,21 @@ public class RestaurantGUI {
 			} else {
 				inventory.addNewIngredient(name, type, amount);
 				JOptionPane.showMessageDialog(null, "The new ingredient was successfully registered");
+				itializeTableView();
 			}
 	    	
 	    }
 
+	    
+	    // Este metodo inicializa la lista que muestra los ingredinetes en el modulo de inventario
+	    private void itializeTableView() {
+	    	observableListIngredients = FXCollections.observableArrayList(inventory.getIngredients());
+	    	
+	    	tvIngredients.setItems(observableListIngredients);
+	    	tcName.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
+	    	tcAmount.setCellValueFactory(new PropertyValueFactory<Ingredient, Double>("amount"));
+	    	tcMeasurementType.setCellValueFactory(new PropertyValueFactory<Ingredient, MEASUREMENT_TYPE>("measurement"));
+	    }
 	    
 	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
 	    @FXML
