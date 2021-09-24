@@ -25,11 +25,16 @@
                 <MenuItem mnemonicParsing="false" text="Action 1" />
               </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Exit">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#logOut" text="Log out" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <Pane fx:id="mainPane" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: white;">
          <children>
-            <ImageView fitHeight="175.0" fitWidth="389.0" layoutX="156.0" layoutY="180.0" pickOnBounds="true">
+            <ImageView fitHeight="183.0" fitWidth="494.0" layoutX="103.0" layoutY="174.0" pickOnBounds="true">
                <image>
                   <Image url="@../../media/Logo%20la%20Cucharita.PNG" />
                </image>
