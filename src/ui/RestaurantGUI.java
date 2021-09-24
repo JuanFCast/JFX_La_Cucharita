@@ -21,6 +21,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -96,6 +98,8 @@ public class RestaurantGUI {
 	private ObservableList<Ingredient> obsDishIngredients;
 	
 	//Variables del modulo de pedidos
+	@FXML
+    private Label dishNameInOrderMenu;
 	@FXML
     private TableView<Dish> tvDishesAvailable;
     @FXML
@@ -228,7 +232,7 @@ public class RestaurantGUI {
     }
 	
 	@FXML
-    void addNewDish(ActionEvent event) {
+    void addNewDish(ActionEvent event) throws IOException {
 		
 		String warning = "";
 		
@@ -250,6 +254,10 @@ public class RestaurantGUI {
 			
 			if(laCucharita.add_New_Dish_In_The_Menu(dishNameText, (ArrayList<Ingredient>) auxdishIngredients, price)) {
 				printWarning("Se ha agregado correctamente el nuevo platillo");
+				
+				auxdishIngredients = new ArrayList<Ingredient>();
+				DishMenu();
+				
 			} else {
 				printWarning("Ha ocurrido un error al momento de registrar el platillo");
 			}
@@ -265,6 +273,13 @@ public class RestaurantGUI {
 		tvDishesAvailable.setItems(obsDishesAvailable);
 		tcDish.setCellValueFactory(new PropertyValueFactory<Dish, String>("dishName"));
 		tcDishPrice.setCellValueFactory(new PropertyValueFactory<Dish, Double>("price"));
+    }
+	
+	@FXML
+    void dishChoose(MouseEvent event) {
+		Dish dishSelected = tvDishesAvailable.getSelectionModel().getSelectedItem();
+		
+		dishNameInOrderMenu.setText(dishSelected.getDishName());
     }
 	
 	
