@@ -35,7 +35,7 @@ import model.User;
 //Clase controladora, aqui poner todo lo referente a lo grafico (Es como el Main en nuestros proyectos)
 public class RestaurantGUI {
 	
-	///////////////////////////////////////////////////////////list-employees
+	
 	//Variables de RestaurantGUI
 	@FXML
     private Pane mainPane;
@@ -427,7 +427,10 @@ public class RestaurantGUI {
 	}
 	
 	
-	///////////////////////////////////////////////////////////list-employees
+	@FXML
+    public void logOut(ActionEvent event) throws IOException {
+		LogInMenu();
+    }
 	
 	
 	
