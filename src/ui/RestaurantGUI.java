@@ -25,63 +25,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Dish;
 import model.Ingredient;
 import model.Inventory;
 import model.MEASUREMENT_TYPE;
 import model.Restaurant;
-
+import model.User;
 
 //Clase controladora, aqui poner todo lo referente a lo grafico (Es como el Main en nuestros proyectos)
 public class RestaurantGUI {
 	
 	///////////////////////////////////////////////////////////list-employees
-	@FXML
-    private TableView<?> tableAccList;
-
-    @FXML
-    private TableColumn<?, ?> colUserName;
-
-    @FXML
-    private TableColumn<?, ?> ID;
-
-    @FXML
-    private TableColumn<?, ?> colBirthday;
-    
-
-   
-    @FXML
-    private TextField txtUserName;
-    
-    @FXML
-    private TextField id;
-    
-    @FXML
-    private DatePicker birthday;
-    
-    
-    @FXML
-    private PasswordField passwordField;
-    
-
-   
-    ///////////////////////////////////////////////////////////list-employees
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//Variables
+	//Variables de RestaurantGUI
 	@FXML
     private Pane mainPane;
 
@@ -96,7 +51,29 @@ public class RestaurantGUI {
 	@FXML
     private PasswordField loginPassField;
 	
-
+	//Variables del modulo de Empleados
+	@FXML
+    private TableView<User> tableAccList;
+	@FXML
+    private TableColumn<User,String> ID;
+    @FXML
+    private TableColumn<User,String> colUserName;
+    @FXML
+    private TableColumn<User,String> colBirthday;
+    @FXML
+    private TextField txtUserName;
+    @FXML
+    private TextField id;
+    @FXML
+    private DatePicker birthday;
+    @FXML
+    private PasswordField passwordField;
+    
+    //Variables del modulo de inventario
+    private ObservableList<Ingredient> observableListIngredients;
+    // instancia de la clase Inventory
+    private Inventory inventory;
+    
 	//Variables del modulo de carta
 	@FXML
     private TableView<Ingredient> tvDishIngredients;
@@ -111,21 +88,24 @@ public class RestaurantGUI {
 	@FXML
     private TextField amountOfIngredients;
 	@FXML
-    private TextField dishName;
+    private TextField txtFdishName;
 	@FXML
     private TextField dishPrice;
 	
 	private List<Ingredient> auxdishIngredients;
 	private ObservableList<Ingredient> obsDishIngredients;
 	
-	//
-	private ObservableList<Ingredient> observableListIngredients;
-
+	//Variables del modulo de pedidos
+	@FXML
+    private TableView<Dish> tvDishesAvailable;
+    @FXML
+    private TableColumn<Dish, String> tcDish;
+    @FXML
+    private TableColumn<Dish, Double> tcDishPrice;
 	
-	// instancia de la clase Inventory
-	private Inventory inventory;
+    private ObservableList<Dish> obsDishesAvailable;
 
-	//Constructor
+	//Constructor de RestaurantGUI
 	public RestaurantGUI() {
 		laCucharita = new Restaurant();
 		inventory = new Inventory();
@@ -134,11 +114,7 @@ public class RestaurantGUI {
 	
 	/**Metodos de Acciones:*/
 	
-	/**
-	 * Este metodo evalua si el usuario esta registrado en la lista y si lo esta permite acceder a los demas modulos
-	 * Dieñado por Juan Camilo
-	 * @throws IOException 
-	 * */
+	//Este metodo evalua si el usuario esta registrado en la lista y si lo esta permite acceder a los demas modulos
 	@FXML
     void LogIn(ActionEvent event) throws IOException {
 		String user = loginUserField.getText();
@@ -254,25 +230,49 @@ public class RestaurantGUI {
 	@FXML
     void addNewDish(ActionEvent event) {
 		
+		String warning = "";
 		
-		if(auxdishIngredients.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Por favor ingrese los ingredientes que conforman al platillo");
+		if(txtFdishName.getText().equals("")) {
+			warning += "- Porfavor asignele un nombre al platillo\n";
+			//JOptionPane.showMessageDialog(null, "Porfavor asignele un nombre al platillo");
 		}
 		
-		if(dishName.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Porfavor asignele un nombre al platillo");
+		if(auxdishIngredients.isEmpty()) {
+			warning += "- Por favor ingrese los ingredientes que conforman al platillo\n";
+			//JOptionPane.showMessageDialog(null, "Por favor ingrese los ingredientes que conforman al platillo");
 		}
 		
 		if(dishPrice.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Porfavor asignele un precio al platillo");
+			warning += "- Porfavor asignele un precio al platillo\n";
+			//JOptionPane.showMessageDialog(null, "Porfavor asignele un precio al platillo\n");
+		}
+		
+		if(warning.equals("")) {
+			String dishNameText = txtFdishName.getText();
+			double price = Double.parseDouble(dishPrice.getText());
+			
+			if(laCucharita.add_New_Dish_In_The_Menu(dishNameText, (ArrayList<Ingredient>) auxdishIngredients, price)) {
+				printWarning("Se ha agregado correctamente el nuevo platillo");
+			} else {
+				printWarning("Ha ocurrido un error al momento de registrar el platillo");
+			}
+		}else {
+			printWarning(warning);
 		}
 		
     }
 	
+	private void itializeTableViewOfDishesAvailable() {
+		obsDishesAvailable = FXCollections.observableArrayList(laCucharita.getDishesAvailable());
+    	
+    	tvDishesAvailable.setItems(obsDishesAvailable);
+    	tcDish.setCellValueFactory(new PropertyValueFactory<Dish, String>("dishName"));
+    	tcDishPrice.setCellValueFactory(new PropertyValueFactory<Dish, Double>("price"));
+    }
 	
 	
-	/**Metodos de mostrar modulos
-	 * @throws IOException */
+	
+	/**Metodos de mostrar modulos*/
 	
 	public void showMainPane() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-pane.fxml"));
@@ -339,6 +339,8 @@ public class RestaurantGUI {
     	fxmlloader.setController(this);
     	Parent log = fxmlloader.load();
     	mainPane.getChildren().setAll(log);
+    	
+    	itializeTableViewOfDishesAvailable();
 	}
 
 	//Este metodo muestra la pantalla del modulo de inventario
@@ -357,12 +359,12 @@ public class RestaurantGUI {
 	///////////////////////////////////////////////////////////list-employees
 	//Este metodo muestra la pantalla del modulo de empleados
 	public void OpenEmployees() throws IOException {
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("list-employe.fxml"));
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("list-employees.fxml"));
 		fxmlloader.setController(this);
 		Parent log = fxmlloader.load();
 		mainPane.getChildren().setAll(log);
 
-		
+		initializeTableViewEmployees();
 	}
 	
 
@@ -371,51 +373,58 @@ public class RestaurantGUI {
 	//Este metodo hace el registor a un empleado
     @FXML
     public void createAccount(ActionEvent event) {
-    	
-		
-    	
     	if(!txtUserName.getText().equals("") && !id.getText().equals("") &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
-    		
-    		classroom.createAccount(txtUserName.getText(), passwordField.getText(),txtProfilePhoto.getText(),gend, career,birthday.getValue(), browser.getSelectionModel().getSelectedItem());
-    		
-    		Alert alert = new Alert(AlertType.INFORMATION);
-    		alert.setTitle("Cuenta creada");
-    		alert.setHeaderText(null);
-    		alert.setContentText("Se ha creado un nuevo empleado!" + "\n" + "Bienvenido " + txtUserName.getText() + "!");
+    		if(!id.getText().equals("") && !txtUserName.getText().equals("")  &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
 
-    		alert.showAndWait();
-    		
-    		txtUserName.clear();
-    		id.clear();
-        	passwordField.clear();
-        	
-        	birthday.setValue(null);
-        	
-        	
-    
-        	
-    	}else {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Acceso denegado");
-    		alert.setHeaderText(null);
-    		alert.setContentText("Debes completar cada campo en el formulario");
+    			laCucharita.createAccount(id.getText(), txtUserName.getText(), birthday.getValue(),passwordField.getText());
 
-    		alert.showAndWait();
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Cuenta creada");
+    			alert.setHeaderText(null);
+    			alert.setContentText("Se ha creado un nuevo empleado!" + "\n" + "Bienvenido " + txtUserName.getText() + "!");
+
+    			alert.showAndWait();
+
+    			txtUserName.clear();
+    			id.clear();
+    			passwordField.clear();
+
+    			birthday.setValue(null);
+
+
+
+
+    		}else {
+    			Alert alert = new Alert(AlertType.ERROR);
+    			alert.setTitle("Acceso denegado");
+    			alert.setHeaderText(null);
+    			alert.setContentText("Debes completar cada campo en el formulario");
+
+    			alert.showAndWait();
+    		}
+
+    		initializeTableViewEmployees();
+
     	}
-
     }
+    	
 	
 	
 	
-	public void initializeTableView() {
-    	ObservableList<UserAccount> list= FXCollections.observableArrayList(classroom.getAccounts());
+	public void initializeTableViewEmployees() {
+		List<User> employees = new ArrayList<User>();
+		for (int i = 0; i < laCucharita.getUserList().size(); i++) {
+			if (laCucharita.getUserList().get(i).getRole().equals("employee") ) {
+				employees.add(laCucharita.getUserList().get(i));
+			}
+		}
+    	ObservableList<User> list= FXCollections.observableArrayList(employees);
     	
     	tableAccList.setItems(list);
-    	colUserName.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("userName"));
-    	colGender.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("gender"));
-    	colCareer.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("career"));
-    	colBirthday.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("birthday"));
-    	colBrowser.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("browser"));
+    	colUserName.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+    	ID.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
+    	colBirthday.setCellValueFactory(new PropertyValueFactory<User,String>("birthday"));
+    	
 	
     	
 	}

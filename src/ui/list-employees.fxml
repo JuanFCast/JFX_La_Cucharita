@@ -16,8 +16,8 @@
    <children>
       <TableView fx:id="tableAccList" layoutY="42.0" prefHeight="558.0" prefWidth="420.0" style="-fx-background-color: orange;">
          <columns>
-            <TableColumn fx:id="colUserName" prefWidth="184.0" text="User Name" />
             <TableColumn fx:id="ID" prefWidth="174.0" text="CC" />
+            <TableColumn fx:id="colUserName" prefWidth="184.0" text="User Name" />
             <TableColumn fx:id="colBirthday" prefWidth="132.0" text="Date of birth" />
          </columns>
          <columnResizePolicy>
