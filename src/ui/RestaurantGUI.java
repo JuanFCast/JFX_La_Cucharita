@@ -29,6 +29,7 @@ import model.Ingredient;
 import model.Inventory;
 import model.MEASUREMENT_TYPE;
 import model.Restaurant;
+import model.User;
 
 
 //Clase controladora, aqui poner todo lo referente a lo grafico (Es como el Main en nuestros proyectos)
@@ -36,16 +37,17 @@ public class RestaurantGUI {
 	
 	///////////////////////////////////////////////////////////list-employees
 	@FXML
-    private TableView<?> tableAccList;
+    private TableView<User> tableAccList;
+
+	
+	@FXML
+    private TableColumn<User,String> ID;
 
     @FXML
-    private TableColumn<?, ?> colUserName;
+    private TableColumn<User,String> colUserName;
 
     @FXML
-    private TableColumn<?, ?> ID;
-
-    @FXML
-    private TableColumn<?, ?> colBirthday;
+    private TableColumn<User,String> colBirthday;
     
 
    
@@ -230,12 +232,12 @@ public class RestaurantGUI {
 	///////////////////////////////////////////////////////////list-employees
 	//Este metodo muestra la pantalla del modulo de empleados
 	public void OpenEmployees() throws IOException {
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("list-employe.fxml"));
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("list-employees.fxml"));
 		fxmlloader.setController(this);
 		Parent log = fxmlloader.load();
 		mainPane.getChildren().setAll(log);
 
-		
+		initializeTableViewEmployees();
 	}
 	
 
@@ -247,11 +249,11 @@ public class RestaurantGUI {
     	
 		
     	
-    	if(!txtUserName.getText().equals("") && !id.getText().equals("") &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
+    	if(!id.getText().equals("") && !txtUserName.getText().equals("")  &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
 	    	
     		
     		
-    		classroom.createAccount(txtUserName.getText(), passwordField.getText(),txtProfilePhoto.getText(),gend, career,birthday.getValue(), browser.getSelectionModel().getSelectedItem());
+    		laCucharita.createAccount(id.getText(), txtUserName.getText(), birthday.getValue(),passwordField.getText());
     		
     		Alert alert = new Alert(AlertType.INFORMATION);
     		alert.setTitle("Cuenta creada");
@@ -277,20 +279,27 @@ public class RestaurantGUI {
 
     		alert.showAndWait();
     	}
+    	
+    	initializeTableViewEmployees();
 
     }
 	
 	
 	
-	public void initializeTableView() {
-    	ObservableList<UserAccount> list= FXCollections.observableArrayList(classroom.getAccounts());
+	public void initializeTableViewEmployees() {
+		List<User> employees = new ArrayList<User>();
+		for (int i = 0; i < laCucharita.getUserList().size(); i++) {
+			if (laCucharita.getUserList().get(i).getRole().equals("employee") ) {
+				employees.add(laCucharita.getUserList().get(i));
+			}
+		}
+    	ObservableList<User> list= FXCollections.observableArrayList(employees);
     	
     	tableAccList.setItems(list);
-    	colUserName.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("userName"));
-    	colGender.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("gender"));
-    	colCareer.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("career"));
-    	colBirthday.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("birthday"));
-    	colBrowser.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("browser"));
+    	colUserName.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+    	ID.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
+    	colBirthday.setCellValueFactory(new PropertyValueFactory<User,String>("birthday"));
+    	
 	
     	
 	}
