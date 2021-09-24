@@ -14,7 +14,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableAccList" layoutY="42.0" prefHeight="558.0" prefWidth="420.0" style="-fx-background-color: orange;">
+      <TableView fx:id="tableAccList" layoutX="17.0" layoutY="38.0" prefHeight="558.0" prefWidth="420.0" style="-fx-background-color: orange;">
          <columns>
             <TableColumn fx:id="ID" prefWidth="174.0" text="CC" />
             <TableColumn fx:id="colUserName" prefWidth="184.0" text="User Name" />
@@ -55,7 +55,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="120.0" layoutY="7.0" prefHeight="27.0" prefWidth="181.0" text="List employes">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="131.0" layoutY="7.0" prefHeight="27.0" prefWidth="181.0" text="List employes">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
