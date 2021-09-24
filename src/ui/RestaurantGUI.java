@@ -234,17 +234,14 @@ public class RestaurantGUI {
 		
 		if(txtFdishName.getText().equals("")) {
 			warning += "- Porfavor asignele un nombre al platillo\n";
-			//JOptionPane.showMessageDialog(null, "Porfavor asignele un nombre al platillo");
 		}
 		
 		if(auxdishIngredients.isEmpty()) {
 			warning += "- Por favor ingrese los ingredientes que conforman al platillo\n";
-			//JOptionPane.showMessageDialog(null, "Por favor ingrese los ingredientes que conforman al platillo");
 		}
 		
 		if(dishPrice.getText().equals("")) {
 			warning += "- Porfavor asignele un precio al platillo\n";
-			//JOptionPane.showMessageDialog(null, "Porfavor asignele un precio al platillo\n");
 		}
 		
 		if(warning.equals("")) {
@@ -265,9 +262,9 @@ public class RestaurantGUI {
 	private void itializeTableViewOfDishesAvailable() {
 		obsDishesAvailable = FXCollections.observableArrayList(laCucharita.getDishesAvailable());
     	
-    	tvDishesAvailable.setItems(obsDishesAvailable);
-    	tcDish.setCellValueFactory(new PropertyValueFactory<Dish, String>("dishName"));
-    	tcDishPrice.setCellValueFactory(new PropertyValueFactory<Dish, Double>("price"));
+		tvDishesAvailable.setItems(obsDishesAvailable);
+		tcDish.setCellValueFactory(new PropertyValueFactory<Dish, String>("dishName"));
+		tcDishPrice.setCellValueFactory(new PropertyValueFactory<Dish, Double>("price"));
     }
 	
 	
