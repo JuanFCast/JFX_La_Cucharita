@@ -388,7 +388,7 @@ public class RestaurantGUI {
     	double total = 0;
     	
     	for(int i = 0; i < laCucharita.getMiniOrder().size(); i++) {
-    		if(!laCucharita.getMiniOrder().isEmpty()) {
+    		if(laCucharita.getMiniOrder().get(i).getTotalPrice() != 0) {
     			total = total + laCucharita.getMiniOrder().get(i).getTotalPrice();
     		}
     	}
@@ -475,8 +475,7 @@ public class RestaurantGUI {
     	mainPane.getChildren().setAll(log);
     	
     	itializeTableViewOfItemsInCart();
-    	double totalPrice = totalToPay();
-    	labTotalToPay.setText("" + totalPrice);
+    	labTotalToPay.setText("" + totalToPay());
 	}
 	
 	public void OrderMenu() throws IOException {
