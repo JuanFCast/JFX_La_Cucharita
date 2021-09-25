@@ -11,12 +11,14 @@ public class Restaurant {
 	private List<User> userList;
 	private List<Dish> dishesAvailable;
 	private List<Order> order;
+	private List<DishOrder> miniOrder;
 	
 	//Constructor
 	public Restaurant() {
 		userList = new ArrayList<User>();
 		dishesAvailable = new ArrayList<Dish>();
 		order = new ArrayList<Order>();
+		miniOrder = new ArrayList<DishOrder>();
 		
 		//Creacion de Usuarios administradores
 		userList.add(new User("123", "Administrador", "123", "Administrador"));
@@ -57,6 +59,14 @@ public class Restaurant {
 		}
 	}
 	
+	public boolean addDishToOrder(Dish dish, int amount, double totalPrice) {
+		if(miniOrder.add(new DishOrder(dish, amount, totalPrice))){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	
 	//Getters y Setters
 	public List<User> getUserList() {
@@ -74,5 +84,15 @@ public class Restaurant {
 	public List<Order> getOrder() {
 		return order;
 	}
+
+	public List<DishOrder> getMiniOrder() {
+		return miniOrder;
+	}
+
+	public void setMiniOrder(List<DishOrder> miniOrder) {
+		this.miniOrder = miniOrder;
+	}
+	
+	
 	
 }

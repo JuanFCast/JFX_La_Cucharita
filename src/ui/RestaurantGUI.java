@@ -29,6 +29,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Dish;
+import model.DishOrder;
 import model.Ingredient;
 import model.Inventory;
 import model.MEASUREMENT_TYPE;
@@ -120,9 +121,24 @@ public class RestaurantGUI {
     private Button bttnLessToOrder;
     @FXML
     private ImageView imgvOrderPicture;
+    
+    private Dish dishSelected;
 	
     private ObservableList<Dish> obsDishesAvailable;
+    
+    //Variables del modulo de carrito
+    @FXML
+    private TableView<DishOrder> tvOrderInCart;
+    @FXML
+    private TableColumn<DishOrder, String> tcDishInCart;
+    @FXML
+    private TableColumn<DishOrder, Integer> tcAmountDishInCart;
+    @FXML
+    private TableColumn<DishOrder, Double> tcTotalPriceDishInCart;
+    
+    private ObservableList<DishOrder> obsDishOrder;
 
+    
 	//Constructor de RestaurantGUI
 	public RestaurantGUI() {
 		laCucharita = new Restaurant();
@@ -155,8 +171,8 @@ public class RestaurantGUI {
     }
 	
 	@FXML
-	void openOrderModule(ActionEvent event) throws IOException {
-		OrderMenu();
+	void openMenu(ActionEvent event) throws IOException {
+		menuModule();
     }
 	
 	@FXML
@@ -295,7 +311,7 @@ public class RestaurantGUI {
 	
 	@FXML
     void dishChoose(MouseEvent event) {
-		Dish dishSelected = tvDishesAvailable.getSelectionModel().getSelectedItem();
+		dishSelected = tvDishesAvailable.getSelectionModel().getSelectedItem();
 		
 		dishNameInOrderMenu.setText(dishSelected.getDishName());
 		txtFieldAmountDishToOrder.setText("1.0");
@@ -334,6 +350,36 @@ public class RestaurantGUI {
 		String valueInText = "" + amount;
 
 		txtFieldAmountDishToOrder.setText(valueInText);
+    }
+    
+    @FXML
+    void openCart(ActionEvent event) throws IOException {
+    	showCart();
+    }
+    
+    @FXML
+    void openOrderModule(ActionEvent event) throws IOException {
+    	OrderMenu();
+    }
+    
+    @FXML
+    void addToCart(ActionEvent event) throws IOException {
+    	int amount = (int) Double.parseDouble(txtFieldAmountDishToOrder.getText());
+    	if(laCucharita.addDishToOrder(dishSelected, amount, dishSelected.getPrice()*amount)) {
+    		menuModule();
+    	}else {
+    		printWarning("Ha ocurrido un error, no se ha podido agregar el platillo al carrito");
+    	}
+    	
+    }
+    
+    private void itializeTableViewOfItemsInCart() {
+		obsDishOrder = FXCollections.observableArrayList(laCucharita.getMiniOrder()); /////ESTOOOOOY AAAAAACAAAAAAAAA
+    	
+		tvOrderInCart.setItems(obsDishOrder);
+		tcDishInCart.setCellValueFactory(new PropertyValueFactory<DishOrder, String>("dishName"));
+		tcAmountDishInCart.setCellValueFactory(new PropertyValueFactory<DishOrder, Integer>("amountOrderedDish"));
+		tcTotalPriceDishInCart.setCellValueFactory(new PropertyValueFactory<DishOrder, Double>("totalPrice"));
     }
 	
 	
@@ -382,7 +428,7 @@ public class RestaurantGUI {
 	
 	//Este metodo muestra en pantalla el modulo de carta
 	public void DishMenu() throws IOException {
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("menu_module.fxml"));
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("register_dish_module.fxml"));
 		fxmlloader.setController(this);
 		Parent log = fxmlloader.load();
 		mainPane.getChildren().setAll(log);
@@ -400,13 +446,29 @@ public class RestaurantGUI {
 	}
 
 	//Este metodo muestra en pantalla el modulo de Pedidos
-	public void OrderMenu() throws IOException {
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("order_module.fxml"));
+	public void menuModule() throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("menu_module.fxml"));
     	fxmlloader.setController(this);
     	Parent log = fxmlloader.load();
     	mainPane.getChildren().setAll(log);
     	
     	itializeTableViewOfDishesAvailable();
+	}
+	
+	public void showCart() throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("cart.fxml"));
+    	fxmlloader.setController(this);
+    	Parent log = fxmlloader.load();
+    	mainPane.getChildren().setAll(log);
+    	
+    	itializeTableViewOfItemsInCart();
+	}
+	
+	public void OrderMenu() throws IOException {
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("order_module.fxml"));
+    	fxmlloader.setController(this);
+    	Parent log = fxmlloader.load();
+    	mainPane.getChildren().setAll(log);
 	}
 
 	//Este metodo muestra la pantalla del modulo de inventario

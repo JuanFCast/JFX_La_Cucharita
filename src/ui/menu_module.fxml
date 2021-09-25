@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -16,70 +15,69 @@
    <children>
       <Pane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #FFAC42;">
          <children>
-            <TableView fx:id="tvDishIngredients" layoutX="14.0" layoutY="82.0" prefHeight="343.0" prefWidth="328.0" style="-fx-background-color: white;">
+            <ImageView fitHeight="600.0" fitWidth="422.0" layoutX="280.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../media/madera.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgvOrderPicture" fitHeight="216.0" fitWidth="381.0" layoutX="318.0" layoutY="92.0" pickOnBounds="true" visible="false">
+               <image>
+                  <Image url="@../../media/comidacolombiana.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="600.0" fitWidth="381.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../media/imagen%20naranja%202.png" />
+               </image>
+            </ImageView>
+            <TableView fx:id="tvDishesAvailable" layoutX="14.0" layoutY="27.0" onMouseClicked="#dishChoose" prefHeight="563.0" prefWidth="304.0" style="-fx-background-color: transparent;">
                <columns>
-                  <TableColumn fx:id="tcDishIngredientName" prefWidth="160.0" text="INGREDIENT" />
-                  <TableColumn fx:id="tcDishIngredientAmount" prefWidth="68.0" text="AMOUNT" />
-                  <TableColumn fx:id="tcDishIngredientMeasurement" prefWidth="98.0" text=" MEASUREMENT" />
+                  <TableColumn fx:id="tcDish" prefWidth="169.0" text="DISH" />
+                  <TableColumn fx:id="tcDishPrice" prefWidth="134.0" text="PRICE" />
                </columns>
             </TableView>
-            <Pane layoutX="380.0" layoutY="34.0" prefHeight="575.0" prefWidth="306.0" style="-fx-background-color: white;">
-               <children>
-                  <TextField fx:id="txtFdishName" layoutX="19.0" layoutY="60.0" prefHeight="48.0" prefWidth="269.0" promptText="Dish Name">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </TextField>
-                  <ComboBox fx:id="cboxIngredientsAvailable" layoutX="164.0" layoutY="168.0" onAction="#evaluateIngredientComboBox" prefHeight="61.0" prefWidth="124.0" />
-                  <TextField fx:id="amountOfIngredients" editable="false" layoutX="67.0" layoutY="168.0" prefHeight="61.0" prefWidth="88.0" text="0">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </TextField>
-                  <Button layoutX="22.0" layoutY="168.0" mnemonicParsing="false" onAction="#plusNeededIngredient" prefHeight="17.0" prefWidth="25.0">
-                     <graphic>
-                        <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../media/simbolo%20de%20añadir.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="22.0" layoutY="204.0" mnemonicParsing="false" onAction="#lessNeededIngredient">
-                     <graphic>
-                        <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../media/simbolo%20de%20quitar.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="34.0" layoutY="249.0" mnemonicParsing="false" onAction="#addDishIngredientToList" prefHeight="39.0" prefWidth="239.0" text="Add Ingredient">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-                  <TextField fx:id="dishPrice" layoutX="138.0" layoutY="314.0" prefHeight="54.0" prefWidth="124.0" promptText="12500">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="102.0" layoutY="312.0" text="\$">
-                     <font>
-                        <Font name="System Bold" size="44.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Label layoutX="14.0" layoutY="34.0" text="Dish ingredients:">
+            <Label fx:id="dishNameInOrderMenu" layoutX="389.0" layoutY="27.0" text="NAME" textFill="WHITE" visible="false">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="34.0" />
                </font>
             </Label>
-            <Button layoutX="25.0" layoutY="475.0" mnemonicParsing="false" onAction="#addNewDish" prefHeight="39.0" prefWidth="306.0" text="Add New Dish">
+            <TextField fx:id="txtFieldAmountDishToOrder" editable="false" layoutX="345.0" layoutY="400.0" prefHeight="69.0" prefWidth="72.0" visible="false">
                <font>
-                  <Font size="18.0" />
+                  <Font size="32.0" />
                </font>
+            </TextField>
+            <Label fx:id="labDishPriceText" layoutX="381.0" layoutY="325.0" text="PRICE: $" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="System Bold" size="29.0" />
+               </font>
+            </Label>
+            <Label fx:id="labDishPriceValue" layoutX="493.0" layoutY="325.0" text="12000" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="System Bold" size="29.0" />
+               </font>
+            </Label>
+            <Button fx:id="bttnAddToCart" layoutX="477.0" layoutY="399.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="69.0" prefWidth="209.0" text="ADD TO CART" visible="false">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <Button fx:id="bttnPlusToOrder" layoutX="426.0" layoutY="399.0" mnemonicParsing="false" onAction="#plusDishToOrder" visible="false">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../media/simbolo%20de%20añadir.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="bttnLessToOrder" layoutX="427.0" layoutY="439.0" mnemonicParsing="false" onAction="#lessDishToOrder" visible="false">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../media/simbolo%20de%20quitar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </Pane>
