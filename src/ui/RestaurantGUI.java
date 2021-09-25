@@ -480,7 +480,7 @@ public class RestaurantGUI {
     	
     	measurementType.getItems().addAll(MEASUREMENT_TYPE.MILLILITERS, MEASUREMENT_TYPE.GRAMS, MEASUREMENT_TYPE.UNITS, MEASUREMENT_TYPE.KILOGRAMS);
     	
-    	itializeTableView();
+    	itializeTableViewInventory();
 	}
 	
 	//Este metodo muestra la pantalla del modulo de empleados
@@ -625,17 +625,19 @@ public class RestaurantGUI {
 	    		printWarning("Please, Complete all fields");
 			} else if (inventory.ingredientExist(name)){
 				printWarning("The ingredient you want to add already exists, try modifying its amount");
-			} else {
+			} else if (amount!=-1){
 				inventory.addNewIngredient(name, type, amount);
+
 				printWarning("The new ingredient was successfully registered");
-				itializeTableView();
+				itializeTableViewInventory();
+
 			}
 	    	
 	    }
 
 	    
 	    // Este metodo inicializa la lista que muestra los ingredinetes en el modulo de inventario
-	    private void itializeTableView() {
+	    private void itializeTableViewInventory() {
 	    	observableListIngredients = FXCollections.observableArrayList(inventory.getIngredients());
 	    	
 	    	tvIngredients.setItems(observableListIngredients);
