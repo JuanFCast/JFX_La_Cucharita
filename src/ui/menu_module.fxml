@@ -16,16 +16,16 @@
    <children>
       <Pane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #FFAC42;">
          <children>
-            <TableView layoutX="14.0" layoutY="82.0" prefHeight="343.0" prefWidth="328.0" style="-fx-background-color: white;">
+            <TableView fx:id="tvDishIngredients" layoutX="14.0" layoutY="82.0" prefHeight="343.0" prefWidth="328.0" style="-fx-background-color: white;">
                <columns>
-                  <TableColumn prefWidth="160.0" text="INGREDIENT" />
-                  <TableColumn prefWidth="68.0" text="AMOUNT" />
-                  <TableColumn prefWidth="98.0" text=" MEASUREMENT" />
+                  <TableColumn fx:id="tcDishIngredientName" prefWidth="160.0" text="INGREDIENT" />
+                  <TableColumn fx:id="tcDishIngredientAmount" prefWidth="68.0" text="AMOUNT" />
+                  <TableColumn fx:id="tcDishIngredientMeasurement" prefWidth="98.0" text=" MEASUREMENT" />
                </columns>
             </TableView>
             <Pane layoutX="380.0" layoutY="34.0" prefHeight="575.0" prefWidth="306.0" style="-fx-background-color: white;">
                <children>
-                  <TextField layoutX="19.0" layoutY="60.0" prefHeight="48.0" prefWidth="269.0" promptText="Dish Name">
+                  <TextField fx:id="txtFdishName" layoutX="19.0" layoutY="60.0" prefHeight="48.0" prefWidth="269.0" promptText="Dish Name">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -36,7 +36,7 @@
                         <Font size="22.0" />
                      </font>
                   </TextField>
-                  <Button layoutX="22.0" layoutY="168.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="25.0">
+                  <Button layoutX="22.0" layoutY="168.0" mnemonicParsing="false" onAction="#plusNeededIngredient" prefHeight="17.0" prefWidth="25.0">
                      <graphic>
                         <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -45,7 +45,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="22.0" layoutY="204.0" mnemonicParsing="false">
+                  <Button layoutX="22.0" layoutY="204.0" mnemonicParsing="false" onAction="#lessNeededIngredient">
                      <graphic>
                         <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -54,12 +54,12 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="34.0" layoutY="249.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="239.0" text="Add Ingredient">
+                  <Button layoutX="34.0" layoutY="249.0" mnemonicParsing="false" onAction="#addDishIngredientToList" prefHeight="39.0" prefWidth="239.0" text="Add Ingredient">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <TextField layoutX="138.0" layoutY="314.0" prefHeight="54.0" prefWidth="124.0" promptText="12500">
+                  <TextField fx:id="dishPrice" layoutX="138.0" layoutY="314.0" prefHeight="54.0" prefWidth="124.0" promptText="12500">
                      <font>
                         <Font size="28.0" />
                      </font>
@@ -76,7 +76,7 @@
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <Button layoutX="25.0" layoutY="475.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="306.0" text="Add New Dish">
+            <Button layoutX="25.0" layoutY="475.0" mnemonicParsing="false" onAction="#addNewDish" prefHeight="39.0" prefWidth="306.0" text="Add New Dish">
                <font>
                   <Font size="18.0" />
                </font>

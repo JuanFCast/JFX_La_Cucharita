@@ -1,42 +1,52 @@
 package model;
 
+import java.time.LocalDate;
+
 public class User {
 	
 	private String id;
 	private String name;
-	private String birthday;
+	private LocalDate birthday;
 	private String password;
 	private String role;
 	
 	
 	//Constructor
-	public User(String id, String name, String birthday, String password, String role) {
-		this.name = name;
+	public User(String id, String name, LocalDate birthday, String password) {
 		this.id = id;
+		this.name = name;
 		this.birthday = birthday;
 		this.password = password;
-		this.role = role;
+		this.role = "employee";
 	}
 	
 	//Constructor overloading
 	public User(String id, String name, String password, String role) {
-		this.name = name;
 		this.id = id;
-		this.password = password;
-		this.role = role;
-	}
+        this.name = name;
+        this.password = password;
+        this.role = role;
+    }
 
 	
+
+
 	//Getters
+	public String getId() {
+		return id;
+	}
+	
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String getName() {
 		return name;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public String getBirthday() {
+	
+	public LocalDate getBirthday() {
 		return birthday;
 	}
 

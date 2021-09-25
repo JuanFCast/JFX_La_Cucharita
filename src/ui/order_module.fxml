@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -27,12 +28,17 @@
                   <Image url="@../../media/imagen%20naranja%202.png" />
                </image>
             </ImageView>
-            <TableView layoutX="21.0" layoutY="14.0" prefHeight="563.0" prefWidth="304.0" style="-fx-background-color: transparent;">
+            <TableView fx:id="tvDishesAvailable" layoutX="21.0" layoutY="14.0" onMouseClicked="#dishChoose" prefHeight="563.0" prefWidth="304.0" style="-fx-background-color: transparent;">
                <columns>
-                  <TableColumn prefWidth="169.0" text="DISH" />
-                  <TableColumn prefWidth="134.0" text="PRICE" />
+                  <TableColumn fx:id="tcDish" prefWidth="169.0" text="DISH" />
+                  <TableColumn fx:id="tcDishPrice" prefWidth="134.0" text="PRICE" />
                </columns>
             </TableView>
+            <Label fx:id="dishNameInOrderMenu" layoutX="496.0" layoutY="27.0" text="NAME" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>
