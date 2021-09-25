@@ -20,7 +20,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
@@ -35,8 +37,7 @@ import model.User;
 
 //Clase controladora, aqui poner todo lo referente a lo grafico (Es como el Main en nuestros proyectos)
 public class RestaurantGUI {
-	
-	
+
 	//Variables de RestaurantGUI
 	@FXML
     private Pane mainPane;
@@ -105,6 +106,20 @@ public class RestaurantGUI {
     private TableColumn<Dish, String> tcDish;
     @FXML
     private TableColumn<Dish, Double> tcDishPrice;
+    @FXML
+    private TextField txtFieldAmountDishToOrder;
+    @FXML
+    private Label labDishPriceText;
+    @FXML
+    private Label labDishPriceValue;
+    @FXML
+    private Button bttnAddToCart;
+    @FXML
+    private Button bttnPlusToOrder;
+    @FXML
+    private Button bttnLessToOrder;
+    @FXML
+    private ImageView imgvOrderPicture;
 	
     private ObservableList<Dish> obsDishesAvailable;
 
@@ -153,8 +168,12 @@ public class RestaurantGUI {
 		} else {
 			for(int i = 0; i < inventory.getIngredients().size(); i++) {
 				if(value.equals(inventory.getIngredients().get(i).getName())) {
-					String amount = "" + inventory.getIngredients().get(i).getAmount();
-					amountOfIngredients.setText(amount);
+					if(inventory.getIngredients().get(i).getAmount() >= 1) {
+						amountOfIngredients.setText("1.0");
+					} else {
+						String amount = "" + inventory.getIngredients().get(i).getAmount();
+						amountOfIngredients.setText(amount);
+					}
 				}
 			}
 		}
@@ -279,6 +298,42 @@ public class RestaurantGUI {
 		Dish dishSelected = tvDishesAvailable.getSelectionModel().getSelectedItem();
 		
 		dishNameInOrderMenu.setText(dishSelected.getDishName());
+		txtFieldAmountDishToOrder.setText("1.0");
+		labDishPriceValue.setText("" + dishSelected.getPrice());
+		
+		dishNameInOrderMenu.setVisible(true);
+		txtFieldAmountDishToOrder.setVisible(true);
+	    labDishPriceText.setVisible(true);
+	    labDishPriceValue.setVisible(true);
+	    bttnAddToCart.setVisible(true);
+	    bttnPlusToOrder.setVisible(true);
+	    bttnLessToOrder.setVisible(true);
+	    imgvOrderPicture.setVisible(true);
+		
+    }
+	
+	@FXML
+    void lessDishToOrder(ActionEvent event) {
+		double amount = Double.parseDouble(txtFieldAmountDishToOrder.getText());
+
+		if(amount > 1) {
+			amount = lessValue(amount);
+		}
+
+		String valueInText = "" + amount;
+
+		txtFieldAmountDishToOrder.setText(valueInText);
+    }
+
+    @FXML
+    void plusDishToOrder(ActionEvent event) {
+    	double amount = Double.parseDouble(txtFieldAmountDishToOrder.getText());
+
+    	amount = plusValue(amount);
+
+		String valueInText = "" + amount;
+
+		txtFieldAmountDishToOrder.setText(valueInText);
     }
 	
 	
@@ -366,8 +421,6 @@ public class RestaurantGUI {
     	itializeTableView();
 	}
 	
-	
-	///////////////////////////////////////////////////////////list-employees
 	//Este metodo muestra la pantalla del modulo de empleados
 	public void OpenEmployees() throws IOException {
 		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("list-employees.fxml"));
@@ -377,9 +430,6 @@ public class RestaurantGUI {
 
 		initializeTableViewEmployees();
 	}
-	
-
-	
 	
 	//Este metodo hace el registor a un empleado
     @FXML
