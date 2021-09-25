@@ -10,11 +10,13 @@ public class Restaurant {
 	//Lista de Usuarios del Restaurante (Empleados y moderadores)
 	private List<User> userList;
 	private List<Dish> dishesAvailable;
+	private List<Order> order;
 	
 	//Constructor
 	public Restaurant() {
 		userList = new ArrayList<User>();
 		dishesAvailable = new ArrayList<Dish>();
+		order = new ArrayList<Order>();
 		
 		//Creacion de Usuarios administradores
 		userList.add(new User("123", "Administrador", "123", "Administrador"));
@@ -67,6 +69,10 @@ public class Restaurant {
 
 	public List<Dish> getDishesAvailable() {
 		return dishesAvailable;
+	}
+
+	public List<Order> getOrder() {
+		return order;
 	}
 	
 }
