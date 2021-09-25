@@ -135,6 +135,8 @@ public class RestaurantGUI {
     private TableColumn<DishOrder, Integer> tcAmountDishInCart;
     @FXML
     private TableColumn<DishOrder, Double> tcTotalPriceDishInCart;
+    @FXML
+    private Label labTotalToPay;
     
     private ObservableList<DishOrder> obsDishOrder;
 
@@ -382,6 +384,17 @@ public class RestaurantGUI {
 		tcTotalPriceDishInCart.setCellValueFactory(new PropertyValueFactory<DishOrder, Double>("totalPrice"));
     }
 	
+    public double totalToPay() {
+    	double total = 0;
+    	
+    	for(int i = 0; i < laCucharita.getMiniOrder().size(); i++) {
+    		if(!laCucharita.getMiniOrder().isEmpty()) {
+    			total = total + laCucharita.getMiniOrder().get(i).getTotalPrice();
+    		}
+    	}
+    	
+    	return total;
+    }
 	
 	
 	/**Metodos de mostrar modulos*/
@@ -462,6 +475,8 @@ public class RestaurantGUI {
     	mainPane.getChildren().setAll(log);
     	
     	itializeTableViewOfItemsInCart();
+    	double totalPrice = totalToPay();
+    	labTotalToPay.setText("" + totalPrice);
 	}
 	
 	public void OrderMenu() throws IOException {
