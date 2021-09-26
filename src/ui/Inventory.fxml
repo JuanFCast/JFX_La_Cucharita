@@ -9,10 +9,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tvIngredients" prefHeight="511.0" prefWidth="451.0">
+      <TableView fx:id="tvIngredients" prefHeight="600.0" prefWidth="451.0">
         <columns>
           <TableColumn fx:id="tcName" prefWidth="206.0" text="Name" />
           <TableColumn fx:id="tcAmount" prefWidth="87.0" text="Amount" />
@@ -26,16 +27,20 @@
       <TextField fx:id="txtNameNewIngredient" layoutX="507.0" layoutY="110.0" />
       <TextField fx:id="txtAmountNewIngredient" layoutX="507.0" layoutY="286.0" />
       <ComboBox fx:id="measurementType" layoutX="506.0" layoutY="200.0" prefWidth="150.0" />
-      <Button layoutX="398.0" layoutY="555.0" mnemonicParsing="false" onAction="#less" prefHeight="25.0" prefWidth="34.0" text="-1" />
-      <Button layoutX="398.0" layoutY="525.0" mnemonicParsing="false" onAction="#plus" prefHeight="25.0" prefWidth="34.0" text="+1" />
-      <Label fx:id="lbNameIngredient" layoutX="24.0" layoutY="536.0" prefHeight="33.0" prefWidth="165.0" text="NameIngredient" />
-      <Label fx:id="lbAmount" layoutX="200.0" layoutY="536.0" prefHeight="33.0" prefWidth="61.0" text="Amount" />
-      <Label fx:id="lbMeasurementType" layoutX="281.0" layoutY="540.0" prefHeight="25.0" prefWidth="102.0" text="MeasurementType" />
+      <Button layoutX="581.0" layoutY="428.0" mnemonicParsing="false" onAction="#less" prefHeight="51.0" prefWidth="77.0" text="-1">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Button>
+      <Button layoutX="488.0" layoutY="428.0" mnemonicParsing="false" onAction="#plus" prefHeight="51.0" prefWidth="77.0" text="+1">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Button>
       <Button layoutX="520.0" layoutY="337.0" mnemonicParsing="false" onAction="#addNewIngredient" text="Add New Ingredient" />
-      <ImageView fitHeight="199.0" fitWidth="227.0" layoutX="459.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="199.0" fitWidth="227.0" layoutX="459.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../media/Logo%20la%20Cucharita.PNG" />
          </image>
       </ImageView>
+      <Label layoutX="473.0" layoutY="371.0" prefHeight="51.0" prefWidth="200.0" text="Select a ingredient of the list to change the amount" wrapText="true" />
    </children>
 </Pane>

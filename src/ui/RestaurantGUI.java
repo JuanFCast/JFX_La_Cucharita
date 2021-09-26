@@ -2,7 +2,10 @@ package ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
 
@@ -77,7 +80,7 @@ public class RestaurantGUI {
     //Variables del modulo de inventario
     private ObservableList<Ingredient> observableListIngredients;
     // instancia de la clase Inventory
-    private Inventory inventory;
+    private static Inventory inventory;
     
 	//Variables del modulo de carta
 	@FXML
@@ -613,6 +616,9 @@ public class RestaurantGUI {
     	measurementType.getItems().addAll(MEASUREMENT_TYPE.MILLILITERS, MEASUREMENT_TYPE.GRAMS, MEASUREMENT_TYPE.UNITS, MEASUREMENT_TYPE.KILOGRAMS);
     	
     	itializeTableViewInventory();
+    	
+    	
+    	
 	}
 	
 	//Este metodo muestra la pantalla del modulo de empleados
@@ -628,7 +634,7 @@ public class RestaurantGUI {
 	//Este metodo hace el registor a un empleado
     @FXML
     public void createAccount(ActionEvent event) {
-    	if(!txtUserName.getText().equals("") && !id.getText().equals("") &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
+    	if(!id.getText().equals("") && !txtUserName.getText().equals("") &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
     		if(!id.getText().equals("") && !txtUserName.getText().equals("")  &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
 
     			laCucharita.createAccount(id.getText(), txtUserName.getText(), birthday.getValue(),passwordField.getText());
@@ -737,7 +743,7 @@ public class RestaurantGUI {
 	  
 	    // este metodo es para agregar un nuevo ingrediente desde el inventario
 	    @FXML
-	    void addNewIngredient(ActionEvent event) {
+	    public void addNewIngredient(ActionEvent event) {
 	    	String name ="";
 	    	MEASUREMENT_TYPE type;
 	    	double amount = -1;
@@ -769,7 +775,10 @@ public class RestaurantGUI {
 
 	    
 	    // Este metodo inicializa la lista que muestra los ingredinetes en el modulo de inventario
-	    private void itializeTableViewInventory() {
+	    public void itializeTableViewInventory() {
+	    	
+	    	sortByName();
+	    	
 	    	observableListIngredients = FXCollections.observableArrayList(inventory.getIngredients());
 	    	
 	    	tvIngredients.setItems(observableListIngredients);
@@ -780,17 +789,40 @@ public class RestaurantGUI {
 	    
 	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
 	    @FXML
-	    void less(ActionEvent event) {
-
+	    public void less(ActionEvent event) throws IOException {
+	    	if(tvIngredients.getSelectionModel().getSelectedItem()==null) {
+	    		
+	    		printWarning("Primero seleccione un ingrediente de la lista");
+	    		
+	    	}else if(tvIngredients.getSelectionModel().getSelectedItem().getAmount()>0) {
+	    		
+	    	tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()-1);
+	    	printWarning("se resto -1");
+	    	
+	    	}else {
+	    		
+	    		printWarning("no puede tener cantidades negativas");
+	    		
+	    	}	 
+	    	OpenInventory();
 	    }
-	    
-	    
-
-	    
+	    	    
 	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
 	    @FXML
-	    void plus(ActionEvent event) {
-
+	    public void plus(ActionEvent event) throws IOException {
+	    	if(tvIngredients.getSelectionModel().getSelectedItem()!=null) {
+	    		tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()+1);
+		    	printWarning("se aumento +1");
+		    	OpenInventory();
+	    	}else {
+	    		printWarning("Primero seleccione un ingrediente de la lista");
+	    	}
+	    	
+	    }
+	    
+	    // este metodo ordena el arreglo de ingredientes por nombre
+	    public void sortByName() {
+	    	Collections.sort(inventory.getIngredients());
 	    }
 	    
 	    
