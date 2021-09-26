@@ -510,7 +510,7 @@ public class RestaurantGUI {
 	//Este metodo hace el registor a un empleado
     @FXML
     public void createAccount(ActionEvent event) {
-    	if(!txtUserName.getText().equals("") && !id.getText().equals("") &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
+    	if(!id.getText().equals("") && !txtUserName.getText().equals("") &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
     		if(!id.getText().equals("") && !txtUserName.getText().equals("")  &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
 
     			laCucharita.createAccount(id.getText(), txtUserName.getText(), birthday.getValue(),passwordField.getText());
