@@ -17,6 +17,30 @@ public class Order {
 		status = ORDER_STATUS.PENDING;
 		orderDate = "" + LocalDateTime.now();
 	}
+
+	public String getUUID() {
+		return UUID;
+	}
+
+	public void setUUID(String uUID) {
+		UUID = uUID;
+	}
+
+	public ORDER_STATUS getStatus() {
+		return status;
+	}
+
+	public void setStatus(ORDER_STATUS status) {
+		this.status = status;
+	}
+
+	public List<DishOrder> getOrderedDishes() {
+		return orderedDishes;
+	}
+
+	public String getOrderDate() {
+		return orderDate;
+	}
 	
 	
 	
