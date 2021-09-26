@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar>
         <menus>
@@ -24,6 +24,12 @@
               <items>
                   <MenuItem mnemonicParsing="false" onAction="#openMenu" text="Menu" />
                   <MenuItem mnemonicParsing="false" onAction="#openCart" text="CART" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Data">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#importData" text="Import Data" />
+                  <MenuItem mnemonicParsing="false" onAction="#exportData" text="Export Data" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Exit">

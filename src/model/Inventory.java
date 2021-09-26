@@ -34,6 +34,10 @@ public class Inventory {
 		oos.close();
 	}
 	
+	
+	//Este metodo importa el archivo serializado con los datos de ingredients, la @SuppressWarnings hace referencia
+	//a que se puede dar el caso que se carge un archivo que no sea de tipo Ingredint, pero como estamos seguros que no
+	//pasara, podemos suprimir ese warning
 	@SuppressWarnings("unchecked")
 	public boolean loadIngredients() throws FileNotFoundException, IOException, ClassNotFoundException {
 		File f = new File("data/Ingredients.LaCucharita");

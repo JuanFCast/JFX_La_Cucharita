@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -187,6 +188,21 @@ public class RestaurantGUI {
 		inventory = new Inventory();
 		auxdishIngredients = new ArrayList<Ingredient>();
 	}
+	
+	//Este metodo exporta la informacion serializada
+	@FXML
+    void exportData(ActionEvent event) throws FileNotFoundException, IOException {
+		inventory.saveIngredients();
+		printWarning("Se ha exportado la informacion");
+    }
+
+	//Este metodo importa la informacion serializada
+    @FXML
+    void importData(ActionEvent event) throws FileNotFoundException, ClassNotFoundException, IOException{
+    	inventory.loadIngredients();
+    	printWarning("Se ha importado la informacion");
+		OpenInventory();
+    }
 	
 	/**Metodos de Acciones:*/
 	
