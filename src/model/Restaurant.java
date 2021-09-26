@@ -67,6 +67,14 @@ public class Restaurant {
 		}
 	}
 	
+	public boolean addOrder(String UUID, ArrayList<DishOrder> dishesOrdered) {
+		if(order.add(new Order(UUID, dishesOrdered))){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	
 	//Getters y Setters
 	public List<User> getUserList() {
