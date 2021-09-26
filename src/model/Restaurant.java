@@ -37,6 +37,20 @@ public class Restaurant {
 		
 	}
 	
+	
+	// Este metodo revisa si un ingrediente que quiere ser agregado ya existe
+	// retorna true si existe y false en el caso contrario
+	public boolean employeeExist(String id) {
+		boolean exist = false;
+		for (int i = 0; i< userList.size() && !exist; i++) {
+			if(userList.get(i).getId().equals(id)) {
+				exist = true;
+			}
+		}
+		return exist;
+	}
+	
+	
 	//Este metodo evalua si el usuario se encuentra registrado y sus datos coinciden para asi poder permitirle iniciar sesion
 	public boolean evaluate_If_User_Can_LogIn(String user, String password) {
 		boolean confirmation = false;

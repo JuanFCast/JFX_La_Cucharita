@@ -3,8 +3,7 @@ package ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 import javax.swing.JOptionPane;
 
@@ -141,6 +140,16 @@ public class RestaurantGUI {
     private Label labTotalToPay;
     
     private ObservableList<DishOrder> obsDishOrder;
+    
+    //Variables de cambiar contraseña
+    @FXML
+    private TextField idconfirm;
+    
+    @FXML
+    private PasswordField passwordConfirm;
+
+    @FXML
+    private PasswordField passwordNew;
 
     
 	//Constructor de RestaurantGUI
@@ -154,7 +163,7 @@ public class RestaurantGUI {
 	
 	//Este metodo evalua si el usuario esta registrado en la lista y si lo esta permite acceder a los demas modulos
 	@FXML
-    void LogIn(ActionEvent event) throws IOException {
+    public void LogIn(ActionEvent event) throws IOException {
 		String user = loginUserField.getText();
 		String password = loginPassField.getText();
 		
@@ -510,42 +519,48 @@ public class RestaurantGUI {
 		initializeTableViewEmployees();
 	}
 	
-	//Este metodo hace el registor a un empleado
+	//Este metodo hace el registro a un empleado
     @FXML
     public void createAccount(ActionEvent event) {
-    	if(!id.getText().equals("") && !txtUserName.getText().equals("") &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
-    		if(!id.getText().equals("") && !txtUserName.getText().equals("")  &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
+    	String cc ="";
+    	cc = id.getText();
 
-    			laCucharita.createAccount(id.getText(), txtUserName.getText(), birthday.getValue(),passwordField.getText());
+    	
+    	if (laCucharita.employeeExist(cc)){
+			printWarning("The ingredient you want to add already exists, try modifying its amount");
+			
+		}else if(!id.getText().equals("") && !txtUserName.getText().equals("")  &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
 
-    			Alert alert = new Alert(AlertType.INFORMATION);
-    			alert.setTitle("Cuenta creada");
-    			alert.setHeaderText(null);
-    			alert.setContentText("Se ha creado un nuevo empleado!" + "\n" + "Bienvenido " + txtUserName.getText() + "!");
+    		laCucharita.createAccount(id.getText(), txtUserName.getText(), birthday.getValue(),passwordField.getText());
 
-    			alert.showAndWait();
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Cuenta creada");
+    		alert.setHeaderText(null);
+    		alert.setContentText("Se ha creado un nuevo empleado!" + "\n" + "Bienvenido " + txtUserName.getText() + "!");
 
-    			txtUserName.clear();
-    			id.clear();
-    			passwordField.clear();
+    		alert.showAndWait();
 
-    			birthday.setValue(null);
+    		txtUserName.clear();
+    		id.clear();
+    		passwordField.clear();
 
+    		birthday.setValue(null);
 
+    		
+    		
 
+    	}else {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Acceso denegado");
+    		alert.setHeaderText(null);
+    		alert.setContentText("Debes completar cada campo en el formulario");
 
-    		}else {
-    			Alert alert = new Alert(AlertType.ERROR);
-    			alert.setTitle("Acceso denegado");
-    			alert.setHeaderText(null);
-    			alert.setContentText("Debes completar cada campo en el formulario");
-
-    			alert.showAndWait();
-    		}
-
-    		initializeTableViewEmployees();
-
+    		alert.showAndWait();
     	}
+
+    	initializeTableViewEmployees();
+
+
     }
     	
 	
@@ -577,7 +592,47 @@ public class RestaurantGUI {
 	
 	
 	
+	//Este metodo envia al usuario a otra ventana para cambiar la contraseña
+	@FXML
+    public void changePassword(ActionEvent event) throws IOException{
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("change_Password.fxml"));
+        fxmlLoader.setController(this);
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+
+        mainStage.setScene(scene);
+        mainStage.setTitle("Password change module");
+        mainStage.show();
+    }
 	
+	
+	//Cambia la contraseña del arreglo
+	@FXML
+	public void changePasswordEmployee(ActionEvent event)throws IOException {
+		String user = idconfirm.getText();
+		String password = passwordConfirm.getText();
+		String passwordN = passwordNew.getText();
+
+		if(!user.equals("") && !password.equals("")) {
+			if(laCucharita.evaluate_If_User_Can_LogIn(user, password)) {
+				for (int i = 0; i < laCucharita.getUserList().size(); i++) {
+					if (user.equals(laCucharita.getUserList().get(i).getId()) && password.equals(laCucharita.getUserList().get(i).getPassword())) {
+						laCucharita.getUserList().get(i).setPassword(passwordN);
+					}
+				}
+				printWarning("Se realizo exitosamente el cambio");
+
+			} else {
+				printWarning("El usuario o la contraseña es incorrecto");
+			}
+		} else {
+			printWarning("Por favor llenar todos los campos");
+		}
+
+
+
+
+	}
 	
 	
 	
