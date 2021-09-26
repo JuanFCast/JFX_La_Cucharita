@@ -2,6 +2,7 @@ package ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -77,7 +78,7 @@ public class RestaurantGUI {
     //Variables del modulo de inventario
     private ObservableList<Ingredient> observableListIngredients;
     // instancia de la clase Inventory
-    private Inventory inventory;
+    private static Inventory inventory;
     
 	//Variables del modulo de carta
 	@FXML
@@ -498,6 +499,8 @@ public class RestaurantGUI {
     	
     	itializeTableViewInventory();
     	
+    	
+    	
 	}
 	
 	//Este metodo muestra la pantalla del modulo de empleados
@@ -655,6 +658,9 @@ public class RestaurantGUI {
 	    
 	    // Este metodo inicializa la lista que muestra los ingredinetes en el modulo de inventario
 	    public void itializeTableViewInventory() {
+	    	
+	    	sortByName();
+	    	
 	    	observableListIngredients = FXCollections.observableArrayList(inventory.getIngredients());
 	    	
 	    	tvIngredients.setItems(observableListIngredients);
@@ -666,12 +672,19 @@ public class RestaurantGUI {
 	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
 	    @FXML
 	    public void less(ActionEvent event) throws IOException {
-	    	if(tvIngredients.getSelectionModel().getSelectedItem().getAmount()>0) {
+	    	if(tvIngredients.getSelectionModel().getSelectedItem()==null) {
+	    		
+	    		printWarning("Primero seleccione un ingrediente de la lista");
+	    		
+	    	}else if(tvIngredients.getSelectionModel().getSelectedItem().getAmount()>0) {
+	    		
 	    	tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()-1);
 	    	printWarning("se resto -1");
 	    	
 	    	}else {
+	    		
 	    		printWarning("no puede tener cantidades negativas");
+	    		
 	    	}	 
 	    	OpenInventory();
 	    }
@@ -679,9 +692,19 @@ public class RestaurantGUI {
 	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
 	    @FXML
 	    public void plus(ActionEvent event) throws IOException {
-	    	tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()+1);
-	    	printWarning("se aumento +1");
-	    	OpenInventory();
+	    	if(tvIngredients.getSelectionModel().getSelectedItem()!=null) {
+	    		tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()+1);
+		    	printWarning("se aumento +1");
+		    	OpenInventory();
+	    	}else {
+	    		printWarning("Primero seleccione un ingrediente de la lista");
+	    	}
+	    	
+	    }
+	    
+	    // este metodo ordena el arreglo de ingredientes por nombre
+	    public void sortByName() {
+	    	Collections.sort(inventory.getIngredients());
 	    }
 	    
 	    
