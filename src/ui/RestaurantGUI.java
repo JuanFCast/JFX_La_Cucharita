@@ -3,6 +3,8 @@ package ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
 
@@ -495,6 +497,7 @@ public class RestaurantGUI {
     	measurementType.getItems().addAll(MEASUREMENT_TYPE.MILLILITERS, MEASUREMENT_TYPE.GRAMS, MEASUREMENT_TYPE.UNITS, MEASUREMENT_TYPE.KILOGRAMS);
     	
     	itializeTableViewInventory();
+    	
 	}
 	
 	//Este metodo muestra la pantalla del modulo de empleados
@@ -651,7 +654,7 @@ public class RestaurantGUI {
 
 	    
 	    // Este metodo inicializa la lista que muestra los ingredinetes en el modulo de inventario
-	    private void itializeTableViewInventory() {
+	    public void itializeTableViewInventory() {
 	    	observableListIngredients = FXCollections.observableArrayList(inventory.getIngredients());
 	    	
 	    	tvIngredients.setItems(observableListIngredients);
@@ -662,23 +665,23 @@ public class RestaurantGUI {
 	    
 	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
 	    @FXML
-	    public void less(ActionEvent event) {
+	    public void less(ActionEvent event) throws IOException {
 	    	if(tvIngredients.getSelectionModel().getSelectedItem().getAmount()>0) {
 	    	tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()-1);
 	    	printWarning("se resto -1");
 	    	
 	    	}else {
 	    		printWarning("no puede tener cantidades negativas");
-	    	}
-	    	itializeTableViewInventory();
+	    	}	 
+	    	OpenInventory();
 	    }
 	    	    
 	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
 	    @FXML
-	    public void plus(ActionEvent event) {
+	    public void plus(ActionEvent event) throws IOException {
 	    	tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()+1);
 	    	printWarning("se aumento +1");
-	    	itializeTableViewInventory();
+	    	OpenInventory();
 	    }
 	    
 	    
