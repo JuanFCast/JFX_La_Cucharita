@@ -619,7 +619,7 @@ public class RestaurantGUI {
 	  
 	    // este metodo es para agregar un nuevo ingrediente desde el inventario
 	    @FXML
-	    void addNewIngredient(ActionEvent event) {
+	    public void addNewIngredient(ActionEvent event) {
 	    	String name ="";
 	    	MEASUREMENT_TYPE type;
 	    	double amount = -1;
@@ -662,17 +662,23 @@ public class RestaurantGUI {
 	    
 	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
 	    @FXML
-	    void less(ActionEvent event) {
-
+	    public void less(ActionEvent event) {
+	    	if(tvIngredients.getSelectionModel().getSelectedItem().getAmount()>0) {
+	    	tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()-1);
+	    	printWarning("se resto -1");
+	    	
+	    	}else {
+	    		printWarning("no puede tener cantidades negativas");
+	    	}
+	    	itializeTableViewInventory();
 	    }
-	    
-	    
-
-	    
+	    	    
 	    // este metodo es para restar en 1 la cantidad del ingrediente seleccionado
 	    @FXML
-	    void plus(ActionEvent event) {
-
+	    public void plus(ActionEvent event) {
+	    	tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()+1);
+	    	printWarning("se aumento +1");
+	    	itializeTableViewInventory();
 	    }
 	    
 	    
