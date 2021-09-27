@@ -1,7 +1,10 @@
 package model;
 
-public class Ingredient implements Comparable<Ingredient> {
+import java.io.Serializable;
+
+public class Ingredient implements Comparable<Ingredient>, Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private MEASUREMENT_TYPE measurement;
 	private double amount;
