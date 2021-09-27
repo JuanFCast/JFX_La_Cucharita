@@ -193,15 +193,14 @@ public class RestaurantGUI {
 	@FXML
     void exportData(ActionEvent event) throws FileNotFoundException, IOException {
 		inventory.saveIngredients();
-		printWarning("Se ha exportado la informacion");
+		printWarning("Information has been exported");
     }
 
 	//Este metodo importa la informacion serializada
     @FXML
     void importData(ActionEvent event) throws FileNotFoundException, ClassNotFoundException, IOException{
     	inventory.loadIngredients();
-    	printWarning("Se ha importado la informacion");
-		OpenInventory();
+    	printWarning("The information has been imported");
     }
 	
 	/**Metodos de Acciones:*/
@@ -307,7 +306,7 @@ public class RestaurantGUI {
 			auxdishIngredients.add(new Ingredient(value, measurent, amount));
 			itializeTableViewOfDishIngredients();
 		} else {
-			printWarning("Porfavor Escoja un ingrediente a utilizar");
+			printWarning("Please choose an ingredient to use");
 		}
 		
 		cboxIngredientsAvailable.setValue("");
@@ -866,16 +865,16 @@ public class RestaurantGUI {
 	    public void less(ActionEvent event) throws IOException {
 	    	if(tvIngredients.getSelectionModel().getSelectedItem()==null) {
 	    		
-	    		printWarning("Primero seleccione un ingrediente de la lista");
+	    		printWarning("First select an ingredient from the list");
 	    		
 	    	}else if(tvIngredients.getSelectionModel().getSelectedItem().getAmount()>0) {
 	    		
 	    	tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()-1);
-	    	printWarning("se resto -1");
+	    	printWarning("decreased -1");
 	    	
 	    	}else {
 	    		
-	    		printWarning("no puede tener cantidades negativas");
+	    		printWarning("cannot have negative amounts");
 	    		
 	    	}	 
 	    	OpenInventory();
@@ -886,12 +885,18 @@ public class RestaurantGUI {
 	    public void plus(ActionEvent event) throws IOException {
 	    	if(tvIngredients.getSelectionModel().getSelectedItem()!=null) {
 	    		tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()+1);
-		    	printWarning("se aumento +1");
+		    	printWarning("increased +1");
 		    	OpenInventory();
 	    	}else {
-	    		printWarning("Primero seleccione un ingrediente de la lista");
+	    		printWarning("First select an ingredient from the list");
 	    	}
 	    	
+	    }
+	    
+	    //Este boton recarga el modulo inventario manualmente
+	    @FXML
+	    void refresh(ActionEvent event) throws IOException {
+	    	OpenInventory();
 	    }
 	    
 	    // este metodo ordena el arreglo de ingredientes por nombre
