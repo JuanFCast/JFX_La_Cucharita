@@ -1,5 +1,12 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +95,33 @@ public class Restaurant {
 			return false;
 		}
 	}
+	
+	
+	
+	//Este metodo es el que crea el archivo serializado de ingredientes
+			//Archive serialized
+		public void saveEmployees() throws FileNotFoundException, IOException{
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("data/Employees.LaCucharita")));
+			oos.writeObject(userList);
+			oos.close();
+		}
+		
+		
+		//Este metodo importa el archivo serializado con los datos de ingredients, la @SuppressWarnings hace referencia
+		//a que se puede dar el caso que se carge un archivo que no sea de tipo Ingredint, pero como estamos seguros que no
+		//pasara, podemos suprimir ese warning
+		@SuppressWarnings("unchecked")
+		public boolean loadEmployees() throws FileNotFoundException, IOException, ClassNotFoundException {
+			File f = new File("data/Employees.LaCucharita");
+			boolean isLoaded = false;
+			if(f.exists()) {
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+				userList = (List<User>) ois.readObject();
+				ois.close();
+				isLoaded = true;
+			}
+			return isLoaded;
+		}
 	
 	
 	//Getters y Setters
