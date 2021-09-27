@@ -611,44 +611,16 @@ public class RestaurantGUI {
     
     @FXML
     void evaluateStatusComboBox(ActionEvent event) throws IOException {
-    	List<Ingredient> totalIngredientsList = new ArrayList<Ingredient>();
+    	
     	boolean orderApproval = false;
     	
     	//Proceso que permite evaluar si se puede aceptar un pedido
     	if(combBoxStatus.getValue().equals(ORDER_STATUS.IN_PROCESS)) {
     		
+    		
     		//Proceso que llena una lista con todos los ingredientes que se usaran para preparar la orden que se selecciono
-    		for(int i = 0; i < orderSelected.getOrderedDishes().size(); i++) {
-				for (int j = 0; j < orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().size(); j++) {
-					if(!totalIngredientsList.isEmpty()) {
-						for (int j2 = 0; j2 < totalIngredientsList.size(); j2++) {
-							if(totalIngredientsList.get(j2).getName().equals(orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName())) {
-								
-								double accumulatedIngredients = totalIngredientsList.get(j2).getAmount() + orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getAmount() * orderSelected.getOrderedDishes().get(i).getAmountOrderedDish();
-								totalIngredientsList.get(j2).setAmount(accumulatedIngredients);
-								
-							} else {
-								
-								String name = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName();
-								MEASUREMENT_TYPE type = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getMeasurement();
-								
-								double amount = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getAmount() * orderSelected.getOrderedDishes().get(i).getAmountOrderedDish();
-								
-								totalIngredientsList.add(new Ingredient(name, type, amount));
-							}
-						}
-					} else {
-						
-						String name = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName();
-						MEASUREMENT_TYPE type = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getMeasurement();
-						
-						double amount = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getAmount() * orderSelected.getOrderedDishes().get(i).getAmountOrderedDish();
-						
-						totalIngredientsList.add(new Ingredient(name, type, amount));
-					}
-					
-				}
-			}
+    		
+    		
     		
     		int count = 0;
     		//Proceso que verifica si el stock en inventario permite aceptar el pedido
@@ -758,6 +730,42 @@ public class RestaurantGUI {
     		
     	}
     	
+    }
+    
+    public ArrayList<Ingredient> generateListWithAllIngredientUsedInDish() {
+    	List<Ingredient> totalIngredientsList = new ArrayList<Ingredient>();
+    	
+    	for (int i = 0; i < orderSelected.getOrderedDishes().size(); i++) {
+			for (int j = 0; j < orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().size(); j++) {
+				if(!totalIngredientsList.isEmpty()) {
+					for (int j2 = 0; j2 < totalIngredientsList.size(); j2++) {
+						if(totalIngredientsList.get(j2).getName().equals(orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName())) {
+							
+							double newAmountOfIngredietsUsed = totalIngredientsList.get(j2).getAmount() + (orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getAmount() * orderSelected.getOrderedDishes().get(i).getAmountOrderedDish());
+							
+							totalIngredientsList.get(j2).setAmount(newAmountOfIngredietsUsed);
+						} else {
+							String dishName = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName();
+							MEASUREMENT_TYPE type = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getMeasurement();
+							double totalAmountIngredient = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getAmount() * orderSelected.getOrderedDishes().get(i).getAmountOrderedDish();
+							
+							totalIngredientsList.add(new Ingredient(dishName, type, totalAmountIngredient));
+						}
+					}
+					
+				} else {
+					String dishName = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName();
+					MEASUREMENT_TYPE type = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getMeasurement();
+					double totalAmountIngredient = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getAmount() * orderSelected.getOrderedDishes().get(i).getAmountOrderedDish();
+					
+					totalIngredientsList.add(new Ingredient(dishName, type, totalAmountIngredient));
+					
+				}
+			}
+			
+		}
+    	
+    	return (ArrayList<Ingredient>) totalIngredientsList;
     }
     
     private void itializeTableViewOfDishesInOrder() {
