@@ -16,6 +16,8 @@ public class Order {
 		orderedDishes = order;
 		status = ORDER_STATUS.PENDING;
 		orderDate = "" + LocalDateTime.now();
+		String[]s = orderDate.split("T");
+		orderDate = s[0];
 	}
 
 	public String getUUID() {
