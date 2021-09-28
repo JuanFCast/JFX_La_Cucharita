@@ -210,15 +210,21 @@ public class RestaurantGUI {
 	@FXML
     void exportData(ActionEvent event) throws FileNotFoundException, IOException {
 		inventory.saveIngredients();
-		printWarning("Se ha exportado la informacion");
+		laCucharita.saveEmployees();
+		printWarning("Information has been exported");
     }
 
 	//Este metodo importa la informacion serializada
     @FXML
     void importData(ActionEvent event) throws FileNotFoundException, ClassNotFoundException, IOException{
     	inventory.loadIngredients();
+    	laCucharita.loadEmployees();
+
+    	printWarning("The information has been imported");
+
     	printWarning("Se ha importado la informacion");
 		
+
     }
 	
 	/**Metodos de Acciones:*/
@@ -324,7 +330,7 @@ public class RestaurantGUI {
 			auxdishIngredients.add(new Ingredient(value, measurent, amount));
 			itializeTableViewOfDishIngredients();
 		} else {
-			printWarning("Porfavor Escoja un ingrediente a utilizar");
+			printWarning("Please choose an ingredient to use");
 		}
 		
 		cboxIngredientsAvailable.setValue("");
@@ -620,96 +626,100 @@ public class RestaurantGUI {
     		
     		//Proceso que llena una lista con todos los ingredientes que se usaran para preparar la orden que se selecciono
     		
+
+    		//Proceso que llena una lista con todos los ingredientes que se usaran para preparar la orden que se selecciono
+    		ArrayList<Ingredient> totalIngredientsList = generateListWithAllIngredientUsedInDish();
     		
     		
+
     		int count = 0;
     		//Proceso que verifica si el stock en inventario permite aceptar el pedido
     		for (int i = 0; i < totalIngredientsList.size(); i++) {
-				for (int j = 0; j < inventory.getIngredients().size(); j++) {
-					if(totalIngredientsList.get(i).getName().equals(inventory.getIngredients().get(j).getName())) {
-						if(totalIngredientsList.get(i).getAmount() <= inventory.getIngredients().get(j).getAmount()) {
-							orderApproval = true;
-						} else {
-							count++;
-							orderApproval = false;
-						}
-					}
-				}
-			}
-    		
+    			for (int j = 0; j < inventory.getIngredients().size(); j++) {
+    				if(totalIngredientsList.get(i).getName().equals(inventory.getIngredients().get(j).getName())) {
+    					if(totalIngredientsList.get(i).getAmount() <= inventory.getIngredients().get(j).getAmount()) {
+    						orderApproval = true;
+    					} else {
+    						count++;
+    						orderApproval = false;
+    					}
+    				}
+    			}
+    		}
+
     		if(count != 0) {
     			orderApproval = false;
     		}
-    		
+
     		boolean sentinel = false;
     		if(orderApproval == true) {
     			for (int i = 0; i < laCucharita.getOrder().size() && sentinel == false; i++) {
-					if(orderSelected.equals(laCucharita.getOrder().get(i))) {
-						sentinel = true;
-						
-						if(laCucharita.getOrder().get(i).getStatus().equals(ORDER_STATUS.PENDING)) {
-	    					
-							laCucharita.getOrder().get(i).setStatus(ORDER_STATUS.IN_PROCESS);
-							printWarning("El pedido seleccionado ha pasado a estar en proceso");
-							
-							
-							for (int j = 0; j < inventory.getIngredients().size(); j++) {
-								boolean sentinel2 = false;
-								
-								int j2 = 0;
-								while(j2 < totalIngredientsList.size() && sentinel2 == false) {
-									if(totalIngredientsList.get(j2).getName().equals(inventory.getIngredients().get(j).getName())) {
-										sentinel2 = true;
-										
-										printWarning("" + inventory.getIngredients().get(j).getAmount());
-										printWarning("" + totalIngredientsList.get(j2).getAmount());
-										
-										double newAmountIngredient = inventory.getIngredients().get(j).getAmount() - totalIngredientsList.get(j2).getAmount();
-										//Aquiiiiiiiiiiiiiiiiiii estooooooooooooooooooooyyyyyyyyyyyyyyyyyyyyyyy ATT: JUANK
-										inventory.getIngredients().get(j).setAmount(newAmountIngredient);
-										
-									} else {
-										j2++;
-									}
-									
-								}
-							}
-							
-	    				}  else if(laCucharita.getOrder().get(i).getStatus().equals(ORDER_STATUS.IN_PROCESS)) {
-	    					printWarning("El pedido seleccionado ya paso a estar en proceso");
-	    				} else if(laCucharita.getOrder().get(i).getStatus().equals(ORDER_STATUS.DELIVERED)) {
-	    					printWarning("El pedido seleccionado ya fue entregado");
-	    				} else {
-	    					printWarning("El pedido seleccionado ya ha sido rechazado previamente");
-	    				}
-						
-					}
-				}
-    			
+    				if(orderSelected.equals(laCucharita.getOrder().get(i))) {
+    					sentinel = true;
+
+    					if(laCucharita.getOrder().get(i).getStatus().equals(ORDER_STATUS.PENDING)) {
+
+    						laCucharita.getOrder().get(i).setStatus(ORDER_STATUS.IN_PROCESS);
+    						printWarning("El pedido seleccionado ha pasado a estar en proceso");
+
+
+    						for (int j = 0; j < inventory.getIngredients().size(); j++) {
+    							boolean sentinel2 = false;
+
+    							int j2 = 0;
+    							while(j2 < totalIngredientsList.size() && sentinel2 == false) {
+    								if(totalIngredientsList.get(j2).getName().equals(inventory.getIngredients().get(j).getName())) {
+    									sentinel2 = true;
+
+    									printWarning("Total de ingredientes: " + inventory.getIngredients().get(j).getAmount());
+    									printWarning("Ingredientes que se restan: " + totalIngredientsList.get(j2).getAmount());
+
+    									double newAmountIngredient = inventory.getIngredients().get(j).getAmount() - totalIngredientsList.get(j2).getAmount();
+    									//Aquiiiiiiiiiiiiiiiiiii estooooooooooooooooooooyyyyyyyyyyyyyyyyyyyyyyy ATT: JUANK
+    									inventory.getIngredients().get(j).setAmount(newAmountIngredient);
+
+    								} else {
+    									j2++;
+    								}
+
+    							}
+    						}
+
+    					}  else if(laCucharita.getOrder().get(i).getStatus().equals(ORDER_STATUS.IN_PROCESS)) {
+    						printWarning("El pedido seleccionado ya paso a estar en proceso");
+    					} else if(laCucharita.getOrder().get(i).getStatus().equals(ORDER_STATUS.DELIVERED)) {
+    						printWarning("El pedido seleccionado ya fue entregado");
+    					} else {
+    						printWarning("El pedido seleccionado ya ha sido rechazado previamente");
+    					}
+
+    				}
+    			}
+
     			OrderMenu();
-    			
+
     		} else {
     			printWarning("El pedido seleccionado supera la cantidad en stock");
     		}
-    		
+
     	} else if(combBoxStatus.getValue().equals(ORDER_STATUS.DELIVERED)) {
     		boolean sentinel = false;
-    		
+
     		for (int i = 0; i < laCucharita.getOrder().size() && sentinel == false; i++) {
-				if(orderSelected.equals(laCucharita.getOrder().get(i))) {
-					sentinel = true;
-					
-					if(laCucharita.getOrder().get(i).getStatus().equals(ORDER_STATUS.IN_PROCESS)) {
-						laCucharita.getOrder().get(i).setStatus(ORDER_STATUS.DELIVERED);
-						OrderMenu();
-					}  else {
-						printWarning("El pedido seleccionado no se encuentra en proceso, porfavor verifica que este se encuentre en proceso");
-					}
-				}
-			}
-			
+    			if(orderSelected.equals(laCucharita.getOrder().get(i))) {
+    				sentinel = true;
+
+    				if(laCucharita.getOrder().get(i).getStatus().equals(ORDER_STATUS.IN_PROCESS)) {
+    					laCucharita.getOrder().get(i).setStatus(ORDER_STATUS.DELIVERED);
+    					OrderMenu();
+    				}  else {
+    					printWarning("El pedido seleccionado no se encuentra en proceso, porfavor verifica que este se encuentre en proceso");
+    				}
+    			}
+    		}
+
     	} else if(combBoxStatus.getValue().equals(ORDER_STATUS.PENDING)) {
-    		
+
     		boolean sentinel = false;
 
     		for (int i = 0; i < laCucharita.getOrder().size() && sentinel == false; i++) {
@@ -727,10 +737,17 @@ public class RestaurantGUI {
     				}
     			}
     		}
-    		
+
     	}
-    	
+
     }
+    
+    public void imprimirArray(ArrayList<Ingredient> a) {
+    	for (int i = 0; i < a.size(); i++) {
+			System.out.println(a.get(i).getName()+a.get(i).getAmount()+"");
+		}
+	}
+    
     
     public ArrayList<Ingredient> generateListWithAllIngredientUsedInDish() {
     	List<Ingredient> totalIngredientsList = new ArrayList<Ingredient>();
@@ -738,20 +755,28 @@ public class RestaurantGUI {
     	for (int i = 0; i < orderSelected.getOrderedDishes().size(); i++) {
 			for (int j = 0; j < orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().size(); j++) {
 				if(!totalIngredientsList.isEmpty()) {
-					for (int j2 = 0; j2 < totalIngredientsList.size(); j2++) {
-						if(totalIngredientsList.get(j2).getName().equals(orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName())) {
-							
+					
+					boolean findTheIngredient = false;
+					
+					for (int j2 = 0; j2 < totalIngredientsList.size() && findTheIngredient == false; j2++) {
+						if(orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName().equals(totalIngredientsList.get(j2).getName())) {
+							////////////////////////////////////Este pedazo hay qeu arreglarlo
 							double newAmountOfIngredietsUsed = totalIngredientsList.get(j2).getAmount() + (orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getAmount() * orderSelected.getOrderedDishes().get(i).getAmountOrderedDish());
+							findTheIngredient = true;
 							
 							totalIngredientsList.get(j2).setAmount(newAmountOfIngredietsUsed);
-						} else {
-							String dishName = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName();
-							MEASUREMENT_TYPE type = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getMeasurement();
-							double totalAmountIngredient = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getAmount() * orderSelected.getOrderedDishes().get(i).getAmountOrderedDish();
-							
-							totalIngredientsList.add(new Ingredient(dishName, type, totalAmountIngredient));
+							////////////////////////////////////Este pedazo hay qeu arreglarlo
 						}
 					}
+					
+					if(findTheIngredient == false) {
+						String dishName = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName();
+						MEASUREMENT_TYPE type = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getMeasurement();
+						double totalAmountIngredient = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getAmount() * orderSelected.getOrderedDishes().get(i).getAmountOrderedDish();
+						System.out.println(totalAmountIngredient);
+						totalIngredientsList.add(new Ingredient(dishName, type, totalAmountIngredient));
+					}
+					
 					
 				} else {
 					String dishName = orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName();
@@ -901,7 +926,7 @@ public class RestaurantGUI {
 
     	
     	if (laCucharita.employeeExist(cc)){
-			printWarning("The ingredient you want to add already exists, try modifying its amount");
+			printWarning("La CC del empleado ya existe, por favor intente agregando una CC diferente");
 			
 		}else if(!id.getText().equals("") && !txtUserName.getText().equals("")  &&birthday.getValue()!=null  &&  !passwordField.getText().equals("")){
 
@@ -1100,16 +1125,16 @@ public class RestaurantGUI {
 	    public void less(ActionEvent event) throws IOException {
 	    	if(tvIngredients.getSelectionModel().getSelectedItem()==null) {
 	    		
-	    		printWarning("Primero seleccione un ingrediente de la lista");
+	    		printWarning("First select an ingredient from the list");
 	    		
 	    	}else if(tvIngredients.getSelectionModel().getSelectedItem().getAmount()>0) {
 	    		
 	    	tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()-1);
-	    	printWarning("se resto -1");
+	    	printWarning("decreased -1");
 	    	
 	    	}else {
 	    		
-	    		printWarning("no puede tener cantidades negativas");
+	    		printWarning("cannot have negative amounts");
 	    		
 	    	}	 
 	    	OpenInventory();
@@ -1120,12 +1145,18 @@ public class RestaurantGUI {
 	    public void plus(ActionEvent event) throws IOException {
 	    	if(tvIngredients.getSelectionModel().getSelectedItem()!=null) {
 	    		tvIngredients.getSelectionModel().getSelectedItem().setAmount(tvIngredients.getSelectionModel().getSelectedItem().getAmount()+1);
-		    	printWarning("se aumento +1");
+		    	printWarning("increased +1");
 		    	OpenInventory();
 	    	}else {
-	    		printWarning("Primero seleccione un ingrediente de la lista");
+	    		printWarning("First select an ingredient from the list");
 	    	}
 	    	
+	    }
+	    
+	    //Este boton recarga el modulo inventario manualmente
+	    @FXML
+	    void refresh(ActionEvent event) throws IOException {
+	    	OpenInventory();
 	    }
 	    
 	    // este metodo ordena el arreglo de ingredientes por nombre

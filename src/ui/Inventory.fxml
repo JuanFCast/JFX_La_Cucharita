@@ -36,11 +36,12 @@
             <Font name="System Bold" size="20.0" />
          </font></Button>
       <Button layoutX="520.0" layoutY="337.0" mnemonicParsing="false" onAction="#addNewIngredient" text="Add New Ingredient" />
-      <ImageView fitHeight="199.0" fitWidth="227.0" layoutX="459.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="199.0" fitWidth="227.0" layoutX="460.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../media/Logo%20la%20Cucharita.PNG" />
          </image>
       </ImageView>
       <Label layoutX="473.0" layoutY="371.0" prefHeight="51.0" prefWidth="200.0" text="Select a ingredient of the list to change the amount" wrapText="true" />
+      <Button layoutX="516.0" layoutY="490.0" mnemonicParsing="false" onAction="#refresh" prefHeight="25.0" prefWidth="115.0" text="Refresh" />
    </children>
 </Pane>
