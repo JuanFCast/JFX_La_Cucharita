@@ -760,12 +760,12 @@ public class RestaurantGUI {
 					
 					for (int j2 = 0; j2 < totalIngredientsList.size() && findTheIngredient == false; j2++) {
 						if(orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getName().equals(totalIngredientsList.get(j2).getName())) {
-							////////////////////////////////////Este pedazo hay qeu arreglarlo
+							
 							double newAmountOfIngredietsUsed = totalIngredientsList.get(j2).getAmount() + (orderSelected.getOrderedDishes().get(i).getOrderedDish().getIngredientList().get(j).getAmount() * orderSelected.getOrderedDishes().get(i).getAmountOrderedDish());
 							findTheIngredient = true;
 							
 							totalIngredientsList.get(j2).setAmount(newAmountOfIngredietsUsed);
-							////////////////////////////////////Este pedazo hay qeu arreglarlo
+							
 						}
 					}
 					
